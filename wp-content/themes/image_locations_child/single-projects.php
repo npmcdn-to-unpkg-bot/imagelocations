@@ -103,6 +103,9 @@ $wp_query = new WP_Query(array(
 if ($wp_query):?>
 
 <?php $tempCounter = 0;?>
+
+  	<div class="image_container hide"></div>
+
 <?php while ( $wp_query->have_posts() ) : $wp_query->the_post();?>
 		
 <section>
@@ -196,7 +199,7 @@ if ($wp_query):?>
 				<div class="swiper-button-prev swiper-button-prev-<?php echo $tempCounter;?>"></div>
 				<div class="swiper-button-next swiper-button-next-<?php echo $tempCounter;?>"></div>                    
 
-				<div class="swiper-scrollbar swiper-scrollbar-<?php echo $tempCounter; ?>"></div>
+				<div class="swiper-scrollbar swiper-scrollbar-<?php echo $tempCounter; ?>"><div class="swiper-scrollbar-drag scrollbar-default-width"></div></div>
 										  
 			</div>    
 			

@@ -52,6 +52,9 @@
 <?php if (have_posts()): ?>
 
   <?php $tempCounter = 0; ?>
+  
+	<div class="image_container hide"></div>
+  
   <?php while (have_posts()): the_post(); ?>
 
     <section>
@@ -155,7 +158,7 @@
             <div class="swiper-button-next swiper-button-next-<?php echo $tempCounter; ?>"></div>                    
 
 
-            <div class="swiper-scrollbar swiper-scrollbar-<?php echo $tempCounter; ?>"></div>                                     
+            <div class="swiper-scrollbar swiper-scrollbar-<?php echo $tempCounter; ?>"><div class="swiper-scrollbar-drag scrollbar-default-width"></div></div>
 
           </div>  
 
