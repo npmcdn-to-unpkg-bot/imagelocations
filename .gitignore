@@ -21,6 +21,11 @@ wp-content/plugins/hello.php
 
 wp-content/themes/twentyfourteen/
 wp-content/themes/twentysixteen/
+
+wp-content/themes/image_locations_child/generated_pdf/
+wp-content/themes/image_locations_child/imagecache/
+wp-content/themes/image_locations_child/zip/
+
 wp-admin/
 wp-includes/
 
