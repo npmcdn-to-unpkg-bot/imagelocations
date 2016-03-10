@@ -70,7 +70,8 @@ function enqueue_parent_styles() {
 
 //  wp_enqueue_script('bootstrap-multiselect-js', get_stylesheet_directory_uri() . '/js/bootstrap-multiselect.js', array(), false, true);
 
-wp_enqueue_script('imagesloaded-js', '//npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.min.js', array(), false, true);
+  wp_enqueue_script('imagesloaded-js', '//npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.min.js', array(), false, true);
+  wp_enqueue_script('jquery-waitforimages-js', get_stylesheet_directory_uri() . '/js/jquery.waitforimages.js', array(), false, true);
 
   wp_register_script('my-script', get_stylesheet_directory_uri() . '/js/myscript.js');
   wp_enqueue_script('my-script');
@@ -98,12 +99,13 @@ function setup() {
   add_image_size('image_314_454', 314, 454, true);
 }
 
-add_action( 'init', 'my_deregister_heartbeat', 1 );
-function my_deregister_heartbeat() {
-	global $pagenow;
+add_action('init', 'my_deregister_heartbeat', 1);
 
-	if ( 'post.php' != $pagenow && 'post-new.php' != $pagenow )
-		wp_deregister_script('heartbeat');
+function my_deregister_heartbeat() {
+  global $pagenow;
+
+  if ('post.php' != $pagenow && 'post-new.php' != $pagenow)
+    wp_deregister_script('heartbeat');
 }
 
 //add_taxanomy('slider-category', 'homepage-slider', array('hierarchical' => true), 'Slider Category');
@@ -377,7 +379,6 @@ function get_any_image_url($location_image, $size = 'medium', $return_size = fal
     return $location_image_url;
   }
 }
-
 
 function get_loaction_city_code($city_address) {
 

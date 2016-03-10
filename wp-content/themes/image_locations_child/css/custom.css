@@ -19,7 +19,7 @@
   header .nav_sec{z-index:99 !important}
 
   section .skystudio_sec .dropdown{top:60px !important; right:0% !important }
-  section .skystudio_sec .btn-primary{top:201px !important; }
+  section .skystudio_sec .btn-primary{top:211px !important; }
 
   section .contact_popup,section .permit_info_popup,section .new_video_popup,section .location_pdf_popup,section .location_pdf_moodboard_popup{width:99%!important; margin:0px !important;}
   header .nav_sec .navbar-default .navbar-nav > li > a{font-size:9px !important}
@@ -105,7 +105,7 @@
   section .contact_popup .md{margin:-2px !important}
   #menu-header li:last-child a{margin-left:10px !important;}
 
-  .mood .droptarget .row-submit-area p{ display:none !important; }
+  /*.mood .droptarget .row-submit-area p{ display:none !important; }*/
 
   .props_content .sd-content ul li {height: 18px; margin: 0 !important; padding: 0; width: 116px; background-color: #ffffff;}
   .props_content .sd-content{margin-left:-3px}
@@ -157,10 +157,24 @@
   .rc-anchor-normal{width:212px !important;}
   .rc-anchor-normal-footer{margin-left:-85px !important;}
   .rc-anchor-normal .rc-anchor-pt{width:98px !important; text-align:right !important; margin:4px 9px 0 0 !important}
-  section .contact_popup .wpcf7-textarea{height:80px !important;}
+  section .contact_popup .wpcf7-textarea{height:50px !important; margin-bottom: 4px !important; }
+  section .contact_popup  .wpcf7-text { height: 25px !important; font-size: 13px !important; margin-bottom: 4px !important; }
 
   .cd-faq-trigger{color:red !important}
 
+  .bwp-recaptcha iframe .rc-anchor-normal{ height: 40px !important; }
+
+  .wpcf7-form-control-wrap.last-name, .wpcf7-form-control-wrap.first-name { float: left !important; width: 50% !important; }
+  .wpcf7-form-control-wrap.first-name input{ width: 99% !important; margin-right: 1% !important; }
+  .wpcf7-form-control-wrap.last-name input{ width: 99% !important; margin-left: 1% !important; }
+  
+  .wpcf7-form-control-wrap.your-email, .wpcf7-form-control-wrap.company { float: left !important; width: 50% !important; }
+  .wpcf7-form-control-wrap.your-email input{ width: 99% !important; margin-right: 1% !important; }
+  .wpcf7-form-control-wrap.company input{ width: 99% !important; margin-left: 1% !important; }
+  section .contact_popup p{ margin-bottom: 5px !important; clear: both !important; }
+
+  
+  .exclusives_banner_image_1 {display:none;}
 }
 
 

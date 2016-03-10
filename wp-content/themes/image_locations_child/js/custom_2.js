@@ -78,9 +78,22 @@ jQuery(function () {
     jQuery("#sharing_email").center(false)
     jQuery(".overlay").show()
   });
+  
   jQuery('#sharing_email').on('hide', function () {
+	  console.log('hide');
     jQuery(".overlay").hide()
   });
+  
+  jQuery('.response').on('show', function () {
+    jQuery("#sharing_email").center(false)
+    jQuery(".overlay").show()
+  });
+  
+  
+  /*jQuery(document).on('click', '.response-close .sharing_cancel', function () {
+	  console.log('sharing_cancel');
+    jQuery(".overlay").hide();
+  });*/
 
 
 // swiper initialize
@@ -124,7 +137,7 @@ jQuery(function () {
         onSetTranslate: function (swiperObj, translate) {
 			
 			if(swiperObj.isEnd){
-			
+				
 				if(jQuery('.swiper-container.moodboard-swiper .swiper-scrollbar-drag').hasClass('scrollbar-default-width')){
 					jQuery('.swiper-container.moodboard-swiper .swiper-scrollbar-drag').removeClass('scrollbar-default-width');
 				}
@@ -206,7 +219,8 @@ jQuery(function () {
         slidesPerView: 1,
         paginationClickable: true,
         spaceBetween: 3,
-        freeMode: true,
+		loop: true,
+        freeMode: false,
         grabCursor: true,
         preloadImages: true,
         paginationHide: true,
@@ -424,6 +438,12 @@ jQuery(function () {
   {
     jQuery('.swiper-container.category-exclusive').each(function (index, element) {
 
+	if(viewport < 768){
+		if(jQuery('.swiper-container.category-exclusive-' + index + ' .exclusives_banner_image_1').size() > 0){
+			jQuery('.swiper-container.category-exclusive-' + index + ' .exclusives_banner_image_1').addClass('hide');
+		}
+	}
+	
       var swiper6 = new Swiper('.swiper-container.category-exclusive-' + index, {
 		pagination: null,
         nextButton: '.swiper-container.category-exclusive .swiper-button-next-' + index,
@@ -663,7 +683,7 @@ jQuery(function () {
 
     });
 
-    jQuery('.moodboard-swiper .swiper-slide-gallery-lazy').each(function ()
+    jQuery('.moodboard-swiper .lazy-slides').each(function ()
     {
       images += jQuery(this).data('lazy_src') + ',';
       // console.log(jQuery(this).data('lazy_src'));
@@ -1144,4 +1164,3 @@ function drop(ev)
 
 
 }
-

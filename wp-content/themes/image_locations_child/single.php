@@ -118,9 +118,9 @@ $location_post_slug = $post->post_name;
                   </div>                       
 
                 <?php else: ?>
-                  
-					<div class="lazy-slides" data-a_id="<?php echo $image['ID']; ?>" data-drag_image="drag_image_<?php echo $image['ID']; ?>" data-thumb_id="<?php echo $image['sizes']['thumbnail']; ?>" data-lazy_src="<?php echo $image['sizes']['Large_Watermark']; ?>"></div>
-					
+
+                  <div class="lazy-slides" data-a_id="<?php echo $image['ID']; ?>" data-drag_image="drag_image_<?php echo $image['ID']; ?>" data-thumb_id="<?php echo $image['sizes']['thumbnail']; ?>" data-lazy_src="<?php echo $image['sizes']['Large_Watermark']; ?>"></div>
+
                 <?php endif; ?>
 
                 <?php
@@ -165,9 +165,9 @@ $location_post_slug = $post->post_name;
                     ?>
 
                     <?php if (get_sub_field('project_image')): ?>
-						
-						<div class="lazy-slides" data-a_id="<?php echo $project_i . $project_field_i; ?>" data-drag_image="drag_image_<?php echo $project_i . $project_field_i; ?>" data-thumb_id="<?php echo get_sub_field('project_image'); ?>" data-lazy_src="<?php echo get_sub_field('project_image'); ?>"></div>
-						
+
+                      <div class="lazy-slides" data-a_id="<?php echo $project_i . $project_field_i; ?>" data-drag_image="drag_image_<?php echo $project_i . $project_field_i; ?>" data-thumb_id="<?php echo get_sub_field('project_image'); ?>" data-lazy_src="<?php echo get_sub_field('project_image'); ?>"></div>
+
                     <?php endif; ?>
 
                     <?php
@@ -480,49 +480,49 @@ $location_post_slug = $post->post_name;
 
             <?php if (get_field("aerial_video") || get_field('wistia_aerial_video')): ?>
 
-                <?php if (get_field('wistia_aerial_video')): ?>
+              <?php if (get_field('wistia_aerial_video')): ?>
 
-					  <h4 style="font-weight: 200;">
-						Wistia Aerial Video of <span style="color:#000;"><?php the_title(); ?></span>
-					  </h4>
-					  
-					  <div class="clearfix">&nbsp;</div>
-					  
-					  <div class="col-md-12">
-					  
-						  <script charset="ISO-8859-1" src="//fast.wistia.com/assets/external/E-v1.js" async></script>
-						  <div class="wistia_embed wistia_async_<?php the_field("wistia_aerial_video") ?>" style="height:480px;width:100%">&nbsp;</div>
-						
-					  </div>
-					  
-				<?php elseif(get_field('aerial_video')): ?>				
-				
-					  <h4 style="font-weight: 200;">
-						Aerial Video of <span style="color:#000;"><?php the_title(); ?></span>
-					  </h4>
-					  
-					  <div class="clearfix">&nbsp;</div>
-					  
-					  <div class="col-md-12">
-					  
-							<?php echo do_shortcode('[vimeo ' . get_field("aerial_video") . '  w=800&h=456]') ?>
-							
-					  </div>
-				
-				<?php endif; ?>
-				
-              </div>
+                <h4 style="font-weight: 200;">
+                  Wistia Video of <span style="color:#000;"><?php the_title(); ?></span>
+                </h4>
 
-            <?php else: ?>
+                <div class="clearfix">&nbsp;</div>
 
-              <?php echo "<h3>No Video...</h3>"; ?>
+                <div class="col-md-12">
 
-            <?php endif; ?>
+                  <script charset="ISO-8859-1" src="//fast.wistia.com/assets/external/E-v1.js" async></script>
+                  <div class="wistia_embed wistia_async_<?php the_field("wistia_aerial_video") ?>" style="height:480px;width:100%">&nbsp;</div>
 
-          </div>
+                </div>
+
+              <?php elseif (get_field('aerial_video')): ?>				
+
+                <h4 style="font-weight: 200;">
+                  Aerial Video of <span style="color:#000;"><?php the_title(); ?></span>
+                </h4>
+
+                <div class="clearfix">&nbsp;</div>
+
+                <div class="col-md-12">
+
+                  <?php echo do_shortcode('[vimeo ' . get_field("aerial_video") . '  w=800&h=456]') ?>
+
+                </div>
+
+              <?php endif; ?>
+
+            </div>
+
+          <?php else: ?>
+
+            <?php echo "<h3>No Video...</h3>"; ?>
+
+          <?php endif; ?>
+
         </div>
-      </section>
     </div>
+  </section>
+  </div>
   </div>    
 
   <!----------------Weather-------------------->
@@ -554,13 +554,16 @@ $location_post_slug = $post->post_name;
       <div class="droptarget" ondrop="drop(event)" ondragover="allowDrop(event)">
 
         <div class="row row-submit-area">
-          <div class="col-md-6 col-md-offset-3">
-            <p><span>Create Mood Board:</span> Double click on the image above to add.</p>
-            <button type="button" data-id="#location_pdf_moodboard_popup1" class="btn btn-primary btn-open-fancybox">Generate Custom PDF</button>
+          <div class="col-md-12 ">
+            <p class="text-center">
+              <span>Create Mood Board:</span> Double click on the image above to add.
+              <button type="button" data-id="#location_pdf_moodboard_popup1" class="btn btn-primary btn-open-fancybox">Generate Custom PDF</button>
+            </p>
+
           </div>
         </div>  
 
-        <div class="photo_h">
+        <div class="photo_h clearfix clear">
           <div class="owl-carousel droppable-slider">
           </div>
         </div>        
@@ -647,9 +650,9 @@ $location_post_slug = $post->post_name;
           <div class="row md">
 
             <div class="col-md-12">              
-			  <h4 style="font-weight: 200;">
-				Permit information for <span style="color:#000;"><?php the_title(); ?></span>
-			  </h4>
+              <h4 style="font-weight: 200;">
+                Permit information for <span style="color:#000;"><?php the_title(); ?></span>
+              </h4>
             </div>
 
             <?php $permits = get_field('permit'); ?>

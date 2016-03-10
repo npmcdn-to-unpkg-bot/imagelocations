@@ -171,6 +171,48 @@ endif; ?>
                         <div class="clearfix" id="featured_categories_anchor">&nbsp;</div>    
                         <h1>Featured Categories </h1>
 
+						<?php $featured_categories = get_field('featured_categories'); ?>
+						
+						<?php /*echo "<pre>"; ?>
+						
+							<?php print_r($featured_categories); ?>
+						
+						<?php echo "</pre>"; */ ?>
+						
+						<?php if(is_array($featured_categories) && count($featured_categories) > 0): ?>
+							
+							<div class="row md">
+							
+							<?php foreach($featured_categories as $fc): ?>
+							
+								<div class="col-md-3 col-sm-6 pd">
+								
+									 <a href="<?php echo isset($fc['link_url'])? $fc['link_url'] : '#'; ?>"> 
+									 
+										<?php if(is_array($fc['image']) && count($fc['image']) > 0): ?>
+									 
+											<img src="<?php echo get_stylesheet_directory_uri(); ?>/image.php?<?php echo $fc['image']['sizes']['large']; ?>&height=211&width=141&cropratio=1.70:1&amp;image=<?php echo $fc['image']['sizes']['large']; ?>" class="img-responsive" alt="<?php echo $fc['image']['alt']; ?>" />
+											
+										<?php endif; ?>
+											
+										<div class="text_caption">
+											<p><?php echo isset($fc['name'])? $fc['name'] : ''; ?></p>
+										</div>
+										
+									 </a>
+								
+								</div>
+									
+							<?php endforeach; ?>
+						
+							</div>
+						
+							<div class="clearfix">&nbsp;</div>
+						
+						<?php endif; ?>
+						      
+							  
+							  
                         <div class="row md">
 
                             <div class="col-md-3 col-sm-6 pd">
@@ -340,7 +382,8 @@ endif; ?>
                             </div>
 
                         </div>
-                        <div class="clearfix" id="all_ctegories_anchor">&nbsp;</div>
+                        
+						<div class="clearfix" id="all_ctegories_anchor">&nbsp;</div>
                         <h1>All Categories</h1>
 
                         <div class="row md">
