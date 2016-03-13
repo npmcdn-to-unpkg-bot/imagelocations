@@ -628,3 +628,6 @@ span.wpcf7-not-valid-tip { z-index: 0 !important; float: left !important;  displ
 #sharing_email .response .response-title { display:none; }
 #sharing_email .response .response-close { margin-top:20px; margin-bottom:10px; }
 #sharing_email .response .response-close .sharing_cancel { float:none; }
+
+.home-location .swiper-slide { width: 100% !important; } 
+.home-location .swiper-slide img { width: 100% !important;  }

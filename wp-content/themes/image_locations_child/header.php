@@ -399,7 +399,7 @@
               </select> 
             </div> 
             <div class="col-md-4 col-sm-6 pd">
-              <select name="floors" class="form-control select_multiple" title="Floors" multiple="multiple">						
+              <select name="floors" class="form-control select_multiple" title="Floors" multiple="multiple">
                 <option value="Concrete">Concrete</option>
                 <option value="Black">Black</option>
                 <option value="Brick">Brick</option>
@@ -416,7 +416,8 @@
                 <option value="White">White</option>
                 <option value="Wood">Wood</option>                                                                                                                          
               </select> 
-            </div>  
+            </div>
+			
             <div class="col-md-4 col-sm-6 pd">
               <select name="walls" class="form-control select_multiple" title="Walls" multiple="multiple">						
                 <option value="">Walls</option>
@@ -433,7 +434,28 @@
                 <option value="Warm">Warm</option>
                 <option value="Wood Panel">Wood Panel</option>                                                                                                                           
               </select>
-            </div>                                                                                              
+            </div>
+			
+			<?php $args = array('post_type' => 'permits', 'posts_per_page' => '-1', 'orderby'=> 'title', 'order' => 'ASC'); ?>
+			
+			<?php $permits = get_posts($args); ?>
+			
+			<?php if(is_array($permits) && count($permits) > 0): ?>
+				
+				<div class="col-md-4 col-sm-6 pd">
+				  <select name="permit" class="form-control select_multiple" title="Permits" multiple="multiple">
+				  
+				  <?php foreach($permits as $permit): ?>
+				  
+					<option value="<?php echo $permit->ID ; ?>"><?php echo $permit->post_title ; ?></option>
+				  
+				  <?php endforeach; ?>
+				  
+				  </select>
+				</div>
+				
+			<?php endif; ?>
+			
             <div class="col-md-4 col-sm-6 pd"><button id="searchsubmit" type="submit" class="btn btn-primary">Search</button></div>
           </div>
 

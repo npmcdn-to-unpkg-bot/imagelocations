@@ -324,9 +324,19 @@ function alter_query($query) {
     $query->set('meta_query', $meta_query); // update the meta query args
   }
 
+  if (isset($_GET['permit'])) {
+    $meta_query[] = array(
+        'key' => 'permit',
+        'value' => '"' . urldecode($_GET['permit']) . '"',
+        'compare' => 'LIKE',
+    );
+    $query->set('meta_query', $meta_query); // update the meta query args
+	//echo "<pre>";print_r($query); echo "</pre>";
+  }
+
   $query->set('showposts', 20);
 
-  // echo "<pre>";print_r($query);exit;
+  
   //we remove the actions hooked on the '__after_loop' (post navigation)
 
   return; // always return
@@ -450,7 +460,7 @@ function your_wpcf7_mail_sent_function($contact_form) {
       define('CLIENT_ID', '3MVG9ZL0ppGP5UrBK7q2z5DMnF1usCB9rmxmxATYHePNg2Z5dRrgq59AcwEd_upx0DCI6e6L_j5omf.acHlxp');
       define('CLIENT_SECRET', '6535753076104196378');
       define('TOKEN', '8H6oNNdgmF629eE03WCJaT3Y');
-     */
+    */ 
 
     $loginurl = "https://login.salesforce.com/services/oauth2/token";
     require_once 'SalesforceAPI.php';
@@ -468,17 +478,18 @@ function your_wpcf7_mail_sent_function($contact_form) {
 
     $access_token = $salesforce->access_token;
     $base_url = $salesforce->new_instance_url;
-
+	//echo $base_url;
 
     $request_params = [
         'FirstName' => $firstname,
         'LastName' => $lastname,
         'Email' => $email,
-            //'Company' => $company,
+        'Company' => $company,
             //'Message' => $message,
     ];
 
-    $response = $salesforce->create_contact($request_params);
+    //$response = $salesforce->create_contact($request_params);
+    $response = $salesforce->create_lead($request_params);
 
 
     //echo "<br />";

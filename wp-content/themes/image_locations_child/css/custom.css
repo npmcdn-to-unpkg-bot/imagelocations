@@ -65,7 +65,7 @@
 }	
 
 @media (min-width:320px) and (max-width:767px){
-
+  
   header .nav_sec .navbar-default .menu{display: block;
                                         font-family: "HelveticaNeueLTStd-Th","Helvetica Neue",HelveticaNeueLTStd-Lt !important;
                                         font-size: 18px;
@@ -185,6 +185,7 @@
     padding: 8px 9px 9px !important;
   }
   .page-numbers.current{padding: 9px !important}
+  section .contact_sec .pd .green_bg{ padding:25px 10px 9px; }
 
 }
 @media (min-width:360px) and (max-width:480px){

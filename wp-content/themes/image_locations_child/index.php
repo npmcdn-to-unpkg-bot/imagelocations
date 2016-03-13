@@ -14,6 +14,14 @@
 
             <?php foreach ($_GET as $key => $value): ?>
 
+              <?php if ($key == 'permit'): ?>
+			  
+				<?php $query_string_value .= get_the_title($value); ?>
+			  
+				<?php continue; ?>
+			  
+			  <?php endif; ?>
+			  
               <?php if ($key != 'city'): ?>
 
                 <?php $query_string_value .= $value . ', '; ?>
