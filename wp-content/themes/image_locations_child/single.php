@@ -76,6 +76,8 @@ $location_post_slug = $post->post_name;
           <?php endif; ?>
 
         <?php endif; ?>
+          
+        <?php $imgCounter = 0;?>  
 
         <div class="swiper-container moodboard-swiper">
           <div class="swiper-wrapper" style="margin-left:4px;">
@@ -90,6 +92,7 @@ $location_post_slug = $post->post_name;
                 <img id="drag_image_0"  class="swiper-lazy1 img-responsive" src="<?php echo $image['sizes']['large']; ?>" alt="<?php echo $image['alt']; ?>" />
                 <a data-id="0" class="btn btn-add-moodboard" style="display: none;"></a>
               </div>
+              <?php $imgCounter++;?>  
               <?php
               $i++;
             endif;
@@ -116,18 +119,27 @@ $location_post_slug = $post->post_name;
                     <a data-id="<?php echo $image['ID'] ?>" class="btn btn-add-moodboard" style="display: none;"></a>
 
                   </div>                       
+				  
+					<?php $imgCounter++;?>
+					<?php else: ?>
+                  
+					<div class="lazy-slides lazy-slides-gallery" data-a_id="<?php echo $image['ID']; ?>" data-drag_image="drag_image_<?php echo $image['ID']; ?>" data-thumb_id="<?php echo $image['sizes']['thumbnail']; ?>" data-lazy_src="<?php echo $image['sizes']['Large_Watermark']; ?>">
 
-                <?php else: ?>
+            <a data-id="<?php echo $image['ID'] ?>" class="btn btn-add-moodboard" style="display: none;"></a>
 
-                  <div class="lazy-slides" data-a_id="<?php echo $image['ID']; ?>" data-drag_image="drag_image_<?php echo $image['ID']; ?>" data-thumb_id="<?php echo $image['sizes']['thumbnail']; ?>" data-lazy_src="<?php echo $image['sizes']['Large_Watermark']; ?>"></div>
-
-                <?php endif; ?>
+          </div>
+					 
+				
+                   <?php $imgCounter++;?>                       
+                <?php   endif; ?>
 
                 <?php
                 $slide_counter++;
               endforeach;
               ?>
 
+                                        
+                                        
             <?php endif; ?>    
 
 
@@ -165,9 +177,17 @@ $location_post_slug = $post->post_name;
                     ?>
 
                     <?php if (get_sub_field('project_image')): ?>
+						
+						<div class="lazy-slides" data-a_id="<?php echo $project_i . $project_field_i; ?>" data-drag_image="drag_image_<?php echo $project_i . $project_field_i; ?>" data-thumb_id="<?php echo get_sub_field('project_image'); ?>" data-lazy_src="<?php echo get_sub_field('project_image'); ?>"></div>
+					  
+					  <?php /* <div class="swiper-slide swiper-slide-gallery">
 
-                      <div class="lazy-slides" data-a_id="<?php echo $project_i . $project_field_i; ?>" data-drag_image="drag_image_<?php echo $project_i . $project_field_i; ?>" data-thumb_id="<?php echo get_sub_field('project_image'); ?>" data-lazy_src="<?php echo get_sub_field('project_image'); ?>"></div>
+						<img id="drag_image_<?php echo $project_i.$project_field_i; ?>" data-thumb="<?php echo get_sub_field('project_image'); ?>" src="<?php echo get_sub_field('project_image'); ?>" class="img-responsive" />
 
+						<a data-id="<?php echo $project_i.$project_field_i; ?>" class="btn btn-add-moodboard" style="display: none;"></a>
+
+					  </div>  */ ?>
+							
                     <?php endif; ?>
 
                     <?php
@@ -197,7 +217,7 @@ $location_post_slug = $post->post_name;
         </div>
 
 
-        <div class="clearfix">&nbsp;</div>
+        <div class="clearfix">&nbsp;</div>        
 
         <div class="row">
           <div class="col-md-4 col-sm-12">
@@ -480,49 +500,49 @@ $location_post_slug = $post->post_name;
 
             <?php if (get_field("aerial_video") || get_field('wistia_aerial_video')): ?>
 
-              <?php if (get_field('wistia_aerial_video')): ?>
+                <?php if (get_field('wistia_aerial_video')): ?>
 
-                <h4 style="font-weight: 200;">
-                  Wistia Video of <span style="color:#000;"><?php the_title(); ?></span>
-                </h4>
+					  <h4 style="font-weight: 200;">
+						Wistia Aerial Video of <span style="color:#000;"><?php the_title(); ?></span>
+					  </h4>
+					  
+					  <div class="clearfix">&nbsp;</div>
+					  
+					  <div class="col-md-12">
+					  
+						  <script charset="ISO-8859-1" src="//fast.wistia.com/assets/external/E-v1.js" async></script>
+						  <div class="wistia_embed wistia_async_<?php the_field("wistia_aerial_video") ?>" style="height:480px;width:100%">&nbsp;</div>
+						
+					  </div>
+					  
+				<?php elseif(get_field('aerial_video')): ?>				
+				
+					  <h4 style="font-weight: 200;">
+						Aerial Video of <span style="color:#000;"><?php the_title(); ?></span>
+					  </h4>
+					  
+					  <div class="clearfix">&nbsp;</div>
+					  
+					  <div class="col-md-12">
+					  
+							<?php echo do_shortcode('[vimeo ' . get_field("aerial_video") . '  w=800&h=456]') ?>
+							
+					  </div>
+				
+				<?php endif; ?>
+				
+              </div>
 
-                <div class="clearfix">&nbsp;</div>
+            <?php else: ?>
 
-                <div class="col-md-12">
+              <?php echo "<h3>No Video...</h3>"; ?>
 
-                  <script charset="ISO-8859-1" src="//fast.wistia.com/assets/external/E-v1.js" async></script>
-                  <div class="wistia_embed wistia_async_<?php the_field("wistia_aerial_video") ?>" style="height:480px;width:100%">&nbsp;</div>
+            <?php endif; ?>
 
-                </div>
-
-              <?php elseif (get_field('aerial_video')): ?>				
-
-                <h4 style="font-weight: 200;">
-                  Aerial Video of <span style="color:#000;"><?php the_title(); ?></span>
-                </h4>
-
-                <div class="clearfix">&nbsp;</div>
-
-                <div class="col-md-12">
-
-                  <?php echo do_shortcode('[vimeo ' . get_field("aerial_video") . '  w=800&h=456]') ?>
-
-                </div>
-
-              <?php endif; ?>
-
-            </div>
-
-          <?php else: ?>
-
-            <?php echo "<h3>No Video...</h3>"; ?>
-
-          <?php endif; ?>
-
+          </div>
         </div>
+      </section>
     </div>
-  </section>
-  </div>
   </div>    
 
   <!----------------Weather-------------------->
@@ -559,11 +579,11 @@ $location_post_slug = $post->post_name;
               <span>Create Mood Board:</span> Double click on the image above to add.
               <button type="button" data-id="#location_pdf_moodboard_popup1" class="btn btn-primary btn-open-fancybox">Generate Custom PDF</button>
             </p>
-
+            
           </div>
         </div>  
 
-        <div class="photo_h clearfix clear">
+        <div class="photo_h">
           <div class="owl-carousel droppable-slider">
           </div>
         </div>        
@@ -580,7 +600,7 @@ $location_post_slug = $post->post_name;
       <section>
         <div class="location_pdf_popup">
           <h4>Generate Custom PDF</h4>
-          <form id="pdf_generate_form" method="POST" action="<?php echo get_stylesheet_directory_uri(); ?>/actionpdf.php" target="_blank" class="form-parlsey">
+          <form id="pdf_generate_form" method="POST" action="http://imageloctions.wpengine.com/wp-content/themes/image_locations_child/actionpdf.php" target="_blank" class="form-parlsey">
 
             <div class="form-group">
               <label for="PDF Title">PDF Title: </label>
@@ -611,7 +631,7 @@ $location_post_slug = $post->post_name;
       <section>
         <div class="location_pdf_moodboard_popup">
           <h4>Generate Custom PDF</h4>
-          <form id="pdf_generate_moodboard" method="POST" action="<?php echo get_stylesheet_directory_uri(); ?>/actionpdf.php" target="_blank" class="form-parlsey-2">
+          <form id="pdf_generate_moodboard" method="POST" action="http://imageloctions.wpengine.com/wp-content/themes/image_locations_child/actionpdf.php" target="_blank" class="form-parlsey-2">
 
             <div class="form-group">
               <label for="PDF Title">PDF Title: </label>
@@ -650,9 +670,9 @@ $location_post_slug = $post->post_name;
           <div class="row md">
 
             <div class="col-md-12">              
-              <h4 style="font-weight: 200;">
-                Permit information for <span style="color:#000;"><?php the_title(); ?></span>
-              </h4>
+			  <h4 style="font-weight: 200;">
+				Permit information for <span style="color:#000;"><?php the_title(); ?></span>
+			  </h4>
             </div>
 
             <?php $permits = get_field('permit'); ?>

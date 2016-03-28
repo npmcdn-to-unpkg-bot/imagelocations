@@ -89,34 +89,11 @@ function enqueue_parent_styles() {
 /* add stylesheets and javascript to child theme [end] */
 
 
-function get_device_name()
-{    
-    $url = "http://imageloctions.staging.wpengine.com/get_device_name.php?id=".rand(0,9999999999);
-//    echo file_get_contents($url);exit;
-    $curl = curl_init();
-    curl_setopt($curl, CURLOPT_URL, $url);
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "GET");
-    // curl_setopt($curl, CURLOPT_HTTPHEADER, getallheaders());    
-    curl_setopt($curl, CURLOPT_FRESH_CONNECT, 1);
-    $header = array("Cache-Control: no-cache");
-    // $header = array("Cache-Control: max-age=0");
-    curl_setopt($curl, CURLOPT_HTTPHEADER, $header);    
-    $result = curl_exec($curl);
-    $response = json_decode($result,1);
-    return isset($response['device']) ? $response['device']:'computer1';
-}
-
 // for Detect device type
-//require "lib/Mobile_Detect.php";
-//$detect = new Mobile_Detect;
-//$deviceType = ($detect->isMobile() ? ($detect->isTablet() ? 'tablet' : 'phone') : 'computer');
-// echo $deviceType;
-
-$deviceType = get_device_name();
-
-// echo "Device From WS => ".$deviceType;
-
+require "lib/Mobile_Detect.php";
+$detect = new Mobile_Detect;
+$deviceType = ($detect->isMobile() ? ($detect->isTablet() ? 'tablet' : 'phone') : 'computer');
+// echo $deviceType;    
 
 require "custom-post-type.php";
 

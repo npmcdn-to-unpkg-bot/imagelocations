@@ -34,20 +34,28 @@ if (is_array($images) && count($images) > 0) {
     $i = 1;
     foreach ($files as $file) 
     {
+        if(trim($file) != "")
+        {
+            $download_file = file_get_contents($file);
 
-        $download_file = file_get_contents($file);
-        
-        $temp = explode('.',$file);
-        $ext = end($temp);
-        
-        if(trim($ext) == "")
-            $ext = "png";
-        
-        $imgName = $location_slug."_image_".$i.".".$ext;
+            $temp = explode('.',$file);
+            $ext = end($temp);
 
-        $zip->addFile($download_file, $imgName, filectime($download_file));
-        $i++;
+            if(trim($ext) == "")
+                $ext = "jpg";
+
+            $imgName = $location_slug."_image_".$i.".".$ext;
+
+//            echo $i.") ".$file." => ".$ext;
+//            echo "<br />";
+
+            $zip->addFile($download_file, $imgName, filectime($download_file));
+            $i++;
+            
+        }    
     }
+    
+    // exit;
 
     $zip->sendZip($filename);
     

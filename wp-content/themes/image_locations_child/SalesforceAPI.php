@@ -582,6 +582,40 @@ class SalesforceAPI extends APIAbstract {
     // echo "New record id $id<br/><br/>";        
   }
   
+  public function create_location($request_params) {
+    $url = $this->new_instance_url . "/services/data/v20.0/sobjects/Location__c";
+    $content = json_encode($request_params);
+
+    $curl = curl_init($url);
+    curl_setopt($curl, CURLOPT_HEADER, false);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($curl, CURLOPT_HTTPHEADER, array
+        (
+        "Authorization: Bearer $this->access_token",
+        "Content-type: application/json"
+            )
+    );
+
+    curl_setopt($curl, CURLOPT_POST, true);
+    curl_setopt($curl, CURLOPT_POSTFIELDS, $content);
+    $json_response = curl_exec($curl);
+    $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);    
+    curl_close($curl);
+    if ($status != 201) 
+    {
+	  print_r(json_decode($json_response, true));
+      return "Error: call to URL $url";
+      // return "Error: call to URL $url failed with status $status, response $json_response, curl_error " . curl_error($curl) . ", curl_errno " . curl_errno($curl);
+    }
+    else 
+    {
+      $response = json_decode($json_response, true);
+
+      return "Location details send!";
+    }
+ 
+  }
+  
 }
 
 abstract class APIAbstract {

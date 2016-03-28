@@ -1,8 +1,41 @@
+<?php if(!isset($_REQUEST['layout'])):?>
+<script type="text/javascript">
+    $url = 'http://'+'<?php echo $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'] ?>';    
+    if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))
+    {
+        
+                
+            <?php if(intval(strpos($_SERVER['REQUEST_URI'],'?')) > 0):?>
+                $url = $url+"&layout=quickview";    
+            <?php else:?>
+                $url = $url+"?layout=quickview";    
+            <?php endif;?>    
+            
+            window.location = $url;
+            
+        
+    }    
+</script>
+<?php endif;?>
 <?php
 /*
   Template Name: New
  */
+
+global $deviceType;
+
+if($deviceType == 'tablet' || $deviceType == 'phone'){
+	
+	if(!(isset($_GET['layout']) && $_GET['layout'] == 'fullview')){
+		
+		$_GET['layout'] = 'quickview';
+	
+	}
+
+}
+ 
 get_header();
+
 ?>
 
 <!--------title------------->
@@ -10,81 +43,101 @@ get_header();
   <div class="container">
     <div class="title_sec">
       <div class="row">
-        <div class="col-md-4 col-sm-4"><h2>New</h2>
-          <?php
-          if (function_exists('sharing_display')) {
-            sharing_display('', true);
-          }
-          ?>				
-        </div>
-        <div class="col-md-6 col-sm-4 text-right">            
-
-
-
-        </div>
-        <div class="col-md-2 col-sm-4">
-
-          <?php if (isset($_GET['city'])): ?>
-
-            <a class="btn btn-primary pull-right" href="<?php
-            if (isset($_GET['layout'])) {
-              echo '?layout=quickview';
-            } else {
-              echo '?';
-            }
-            ?>">View All Cities</a>
-
-          <?php else: ?>
-
-            <select class="form-control" id="city_selection_dropdown">
-
-              <option value="<?php echo site_url(); ?>/category/new/<?php
-              if (isset($_GET['layout'])) {
-                print ('?layout=quickview');
-              }
-              ?>">All Cities</option>
-
-              <?php $allcities = array(); ?>
-
-              <?php while (have_posts()) : the_post(); ?>   
-
-                <?php $city1 = get_field('city_address'); ?>
-
-                <?php if ($city1): ?>
-
-                  <?php if (!in_array($city1, $allcities)): ?>
-
-                    <option value="<?php echo site_url(); ?>/category/new/?city=<?php echo urlencode($city1); ?><?php
-                    if (isset($_GET['layout'])) {
-                      print ('&layout=quickview');
+        <div class="col-md-4 col-sm-5">
+                    <h2>New</h2>
+                    <?php
+                    if (function_exists('sharing_display')) 
+                    {
+                      sharing_display('', true);
                     }
-                    ?>"><?php echo $city1; ?></option>
+                    ?>				                                                                                    
+        </div>
+        <div class="col-md-2 col-sm-1 text-right">            
+        </div>
+        <div class="col-md-6 col-sm-6">
+            <div class="row">
+                <div class="col-md-4"></div>
+                        
+                        <?php if (isset($_GET['city'])): ?>
+                        <div class="col-md-5 category-btn-area pd-0 col-sm-6">                        
+                          <a class="btn btn-primary pull-right" href="<?php
+                          if (isset($_GET['layout'])) {
+                            echo '?layout=quickview';
+                          } else {
+                            echo '?';
+                          }
+                          ?>">View All Cities</a>
+                        </div>        
+                        <?php else: ?>
+                        <div class="col-md-5 category-btn-area pd-0 col-sm-6">                        
+                          <select class="form-control" id="city_selection_dropdown">
 
-                    <?php $allcities[] = $city1; ?>
+                            <option value="<?php echo site_url(); ?>/category/new/<?php
+                            if (isset($_GET['layout'])) {
+                              print ('?layout=quickview');
+                            }
+                            ?>">All Cities</option>
 
-                  <?php endif; ?>
+                            <?php $allcities = array(); ?>
 
-                <?php endif ?>
+                            <?php while (have_posts()) : the_post(); ?>   
 
-              <?php endwhile; ?>						
+                              <?php $city1 = get_field('city_address'); ?>
 
-            </select> 
+                              <?php if ($city1): ?>
 
-          <?php endif; ?>
+                                <?php if (!in_array($city1, $allcities)): ?>
 
+                                  <option value="<?php echo site_url(); ?>/category/new/?city=<?php echo urlencode($city1); ?><?php
+                                  if (isset($_GET['layout'])) {
+                                    print ('&layout=quickview');
+                                  }
+                                  ?>"><?php echo $city1; ?></option>
+
+                                  <?php $allcities[] = $city1; ?>
+
+                                <?php endif; ?>
+
+                              <?php endif ?>
+
+                            <?php endwhile; ?>						
+
+                          </select> 
+                        </div>    
+                        <?php endif; ?>                    
+                
+                <div class="col-md-3 col-sm-6">
+                    <?php if (isset($_GET['layout']) && $_GET['layout'] == 'quickview'): ?>
+                      <a href="?layout=fullview<?php
+                      if (isset($_GET['city'])) {
+                        print ('&city=' . $_GET['city']);
+                      }
+                      ?>" class="btn btn-primary"> View Full View</a>
+                       <?php else: ?>
+                      <a href="
+                      <?php
+                      if (isset($_GET['city'])) {
+                        print ('?city=' . $_GET['city'] . '&');
+                      } else {
+                        print ('?');
+                      }
+                      ?>layout=quickview" class="btn btn-primary pull-right"> View Quickview</a>
+                    <?php endif ?>		                    
+                </div>
+            </div>              
         </div>                                
       </div>
-
+      <div class="clearfix">&nbsp;</div>
     </div>
   </div>
 </section>
 
-<?php if (isset($_GET['layout'])): ?>
+<?php if (isset($_GET['layout']) && $_GET['layout'] == 'quickview'): ?>
 
   <section>
     <div class="container">
       <div class="project_side_sec">		
-        <div class="row">
+        <div class="row mr-left-10">
 
           <?php
           global $query_string;
@@ -97,7 +150,7 @@ get_header();
           while (have_posts()): the_post();
             ?>
 
-            <div class="col-md-2 col-sm-3 quickview">
+            <div class="col-md-3 col-sm-3 col-xs-6 quickview box-area pd-lr-10">
 
               <?php
               $image = get_field('main_image_new');
@@ -107,18 +160,19 @@ get_header();
               <?php if ($image): ?>							
 
                 <a href="<?php the_permalink(); ?>">
-
-                  <img width="<?php echo $image['sizes']['medium-width']; ?>" height="<?php echo $image['sizes']['medium-height']; ?>" src="<?php echo $image['sizes']['medium']; ?>"  class="img-responsive"  alt="<?php echo $image['alt']; ?>"/>
+                  <?php // $image_url = wp_get_attachment_image_src($image, $size); ?>                   
+                  <?php /* <img width="<?php echo $image['sizes']['medium-width']; ?>" height="<?php echo $image['sizes']['medium-height']; ?>" src="<?php echo $image['sizes']['medium']; ?>"  class="img-responsive"  alt="<?php echo $image['alt']; ?>"/> */ ?>
+                  <img class="img-responsive" src="<?php echo get_stylesheet_directory_uri(); ?>/image.php?<?php echo $image['sizes']['medium']; ?>&height=200&width=314&cropratio=1.50:1&amp;image=<?php echo $image['sizes']['medium']; ?>" width="100%"/>
 
                 </a>								
 
               <?php endif; ?>						
               <a href="<?php the_permalink(); ?>" class="text-decoration-none"><h3><?php the_title(); ?></h3></a>
-              <div class="clearfix">&nbsp;</div>
+              <div class="clearfix"></div>
             </div>
 
-            <?php if ($i % 6 == 0): ?>
-            </div><div class="row">
+            <?php if ($i % 4 == 0): ?>
+            </div><div class="row mr-left-10">
             <?php endif ?>
 
             <?php
@@ -169,7 +223,7 @@ get_header();
 
                 <?php foreach ($other_images as $other_image): ?>
 
-                  <?php if ($count < 3): ?>
+                  <?php if ($count < 5): ?>
 
                     <div class="swiper-slide">            
                       <a href="<?php the_permalink(); ?>">
@@ -183,7 +237,8 @@ get_header();
                       <div  class="lazy-slides" data-lazy_href="<?php the_permalink(); ?>" data-lazy_src="<?php echo $other_image['sizes']['medium']; ?>"></div> */ ?>
 
                     <div class="lazy-slides" data-lazy_href="<?php the_permalink(); ?>" data-lazy_src="<?php echo $other_image['sizes']['medium']; ?>"></div>
-
+					
+					
                   <?php endif; ?>
 
                   <?php
@@ -282,10 +337,10 @@ get_header();
 
         </div>
         <div class="col-md-4 col-sm-12">
-          <?php if (isset($_GET['layout'])): ?> 
-            <a href="?<?php
+          <?php if (isset($_GET['layout']) && $_GET['layout'] == 'quickview'): ?>
+            <a href="?layout=fullview<?php
             if (isset($_GET['city'])) {
-              print ('city=' . $_GET['city']);
+              print ('&city=' . $_GET['city']);
             }
             ?>" class="btn btn-primary pull-right"> View Full View</a>
              <?php else: ?>

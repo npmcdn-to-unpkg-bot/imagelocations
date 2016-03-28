@@ -142,12 +142,11 @@
 
                   <?php else: ?>
 
-                    <?php /* <div class="swiper-slide empty" style="width:<?php echo $image['sizes']['medium-width']; ?>px !important;background:url('<?php echo get_stylesheet_directory_uri(); ?>/images/slide-loader.gif') no-repeat;background-position:center;height:auto;"></div>
+                    <?php /*<div class="swiper-slide empty" style="width:<?php echo $image['sizes']['medium-width']; ?>px !important;background:url('<?php echo get_stylesheet_directory_uri(); ?>/images/slide-loader.gif') no-repeat;background-position:center;height:auto;"></div>
                       <div class="lazy-slides" data-lazy_href="<?php the_permalink(); ?>" data-lazy_src="<?php echo $image['sizes']['medium']; ?>"></div> */ ?>
 
                     <div class="lazy-slides" data-lazy_href="<?php the_permalink(); ?>" data-lazy_src="<?php echo $image['sizes']['medium']; ?>"></div>
-
-
+					
                   <?php endif; ?>
 
                   <?php

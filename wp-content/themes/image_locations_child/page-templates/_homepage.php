@@ -49,10 +49,7 @@ $main_location_slider = get_posts($args);
                               <?php /* <img class="img-responsive" src="<?php echo $slider['banner_slideshow_image']['sizes']['home_slide_image']; ?>" width="<?php echo $slider['banner_slideshow_image']['sizes']['home_slide_image-width']; ?>" height="<?php echo $slider['banner_slideshow_image']['sizes']['home_slide_image-height']; ?>" alt="<?php echo $slider['banner_slideshow_title']; ?>" />*/ ?>
                             </a>
 							<div class="caption">
-								<h3><?php echo $slider['banner_slideshow_title']; ?></h3>
-								<?php /*if($slider['banner_slideshow_location_city'] != ""): ?>
-									<h2><span>|</span><?php echo $slider['banner_slideshow_location_city']; ?></h2>
-								<?php endif; */ ?>
+								<h3><?php echo $slider['banner_slideshow_title']; ?><span>|</span></h3><h2>sda</h2>
 							</div>
                           <?php endif; ?>
                         </div>
@@ -112,16 +109,37 @@ $main_location_slider = get_posts($args);
                     </div>
 
                     <div class="col-md-12 col-sm-12">
-                      <div class="gray_bg">
-                        <h4>RECENT PROJECTS</h3>
-						<a href="/portfolio/" class="btn btn-primary">portfolio</a>                                                          
+                      <div class="red_bg">
+                        <h3>Featured Locations</h3>
+                        <img src="<?php echo get_stylesheet_directory_uri() ?>/images/line_grey.png" width="107" height="1" />
+                        <div id="homepage_featured_location_info" class="owl-carousel">								
+
+                          <?php if (is_array($main_location_slider) && count($main_location_slider) > 0): ?>
+                            <?php $banners = get_field('banners', $main_location_slider[0]->ID); ?>
+                            <?php if (is_array($banners) && count($banners) > 0): ?>
+                              <?php foreach ($banners as $banner): ?>
+                                <?php if (isset($banner['section_type']) && ($banner['section_type'] == 'Slideshow') && count($banner['banner_slideshow_']) > 0): ?>
+
+                                  <?php foreach ($banner['banner_slideshow_'] as $slider): ?>											
+                                    <div class="item">  
+                                      <?php if (is_array($slider['banner_slideshow_image']) && count($slider['banner_slideshow_image']) > 0): ?>
+                                        <h2><?php echo $slider['banner_slideshow_title']; ?></h2>   
+                                        <a href="<?php echo $slider['banner_slideshow_link']; ?>" class="btn btn-primary">View Location</a>                                                          
+                                      <?php endif; ?>
+                                    </div>    
+                                  <?php endforeach; ?>
+
+                                <?php endif; ?>
+                              <?php endforeach; ?>								
+                            <?php endif; ?>
+                          <?php endif; ?>
+
+
+
+
+                        </div>
                       </div>
-                      <div class="gray_bg">
-                        <h4>The <span>ART</span> of <span>LOCATIONS</span></h3>
-						<a href="/location-library/" class="btn btn-primary">LOCATIONS</a>                                                          
-                      </div>					  
                     </div>
-					
                   </div>						
                 </div>
 
@@ -164,7 +182,7 @@ $banners_list = get_posts($args);
                   <?php if (is_array($banner['code_embed_image']) && count($banner['code_embed']) > 0): ?>
                     <center>
                       <a href="<?php echo $banner['code_embed_image_link_url']; ?>">
-                        <img class="img-responsive" width="<?php echo $banner['code_embed_image']['sizes']['large-width']; ?>" height="<?php echo $banner['code_embed_image']['sizes']['large-height']; ?>" src="<?php echo $banner['code_embed_image']['sizes']['large']; ?>" alt="<?php echo $banner['section_title']; ?>" />
+                        <img class="img-responsive b-lazy" width="<?php echo $banner['code_embed_image']['sizes']['large-width']; ?>" height="<?php echo $banner['code_embed_image']['sizes']['large-height']; ?>" data-src="<?php echo $banner['code_embed_image']['sizes']['large']; ?>" alt="<?php echo $banner['section_title']; ?>" />
                       </a>
                     </center>
                   <?php endif; ?>

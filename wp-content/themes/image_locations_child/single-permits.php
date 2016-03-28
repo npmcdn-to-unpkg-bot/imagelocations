@@ -1,7 +1,39 @@
+<?php if(!isset($_REQUEST['layout'])):?>
+<script type="text/javascript">
+    $url = 'http://'+'<?php echo $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'] ?>';    
+    if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))
+    {
+        
+                
+            <?php if(intval(strpos($_SERVER['REQUEST_URI'],'?')) > 0):?>
+                $url = $url+"&layout=quickview";    
+            <?php else:?>
+                $url = $url+"?layout=quickview";    
+            <?php endif;?>    
+            
+            window.location = $url;
+            
+        
+    }    
+</script>
+<?php endif;?>
 <?php
 $segments = explode('/', trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/'));
 
 $first_page_url = site_url() . "/permits/" . $segments[1] . "/1";
+
+ 
+global $deviceType;
+
+if($deviceType == 'tablet' || $deviceType == 'phone'){
+	
+	if(!(isset($_GET['layout']) && $_GET['layout'] == 'fullview')){
+		
+		$_GET['layout'] = 'quickview';
+	
+	}
+
+}
 
 get_header();
 ?>
@@ -93,8 +125,52 @@ $posts = get_posts(array(
 
 
 
-if ($posts):
-  ?>
+if ($posts):  ?>
+  
+<?php if (isset($_GET['layout']) && $_GET['layout'] == 'quickview'): ?>
+
+  <section>
+    <div class="container">
+      <div class="project_side_sec">		
+        <div class="row">
+			
+			<?php $i=1; foreach ($posts as $post): setup_postdata($post); ?>
+			
+            <div class="col-md-2 col-sm-3 col-xs-6 quickview">
+
+              <?php
+              $image = get_field('main_image_new');
+              $size = 'medium'; // (thumbnail, medium, large, full or custom size)  
+              ?>
+
+              <?php if ($image): ?>							
+
+                <a href="<?php the_permalink(); ?>">
+                  
+				  <img class="img-responsive" src="<?php echo get_stylesheet_directory_uri(); ?>/image.php?<?php echo $image['sizes']['medium']; ?>&height=200&width=314&cropratio=1.50:1&amp;image=<?php echo $image['sizes']['medium']; ?>" />
+
+                </a>								
+
+              <?php endif; ?>			
+              
+			  <a href="<?php the_permalink(); ?>" class="text-decoration-none"><h3><?php the_title(); ?></h3></a>
+			  
+            </div>
+
+            <?php if ($i % 6 == 0): ?>
+            </div><div class="row">
+            <?php endif ?>
+
+            <?php
+            $i++;
+          endforeach;
+          ?>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<?php else: ?>
 
   <?php $tempCounter = 0; ?>  
   
@@ -181,11 +257,11 @@ if ($posts):
                         </a>            
                       </div>                        
 
-          <?php endif; ?>
+					<?php endif; ?>
 
                   <?php else: ?>
 
-                    <?php $display_image = wp_get_attachment_image_src($other_image['ID'], $size); ?>
+                    <?php  $display_image = wp_get_attachment_image_src($other_image['ID'], $size); ?>
 
                     <?php if (is_array($display_image) && count($display_image) > 0): ?>
 
@@ -194,7 +270,7 @@ if ($posts):
 
                       <div class="lazy-slides" data-lazy_href="<?php the_permalink(); ?>" data-lazy_src="<?php echo $display_image[0]; ?>"></div>
 
-          <?php endif; ?>
+					<?php endif; ?>
 
                   <?php endif; ?>
 
@@ -267,6 +343,7 @@ if ($posts):
 
   <?php endforeach; ?>
 
+<?php endif; ?>
 
   <!--------pagination section------------->
   <section>
@@ -282,6 +359,15 @@ if ($posts):
             <?php endif; ?>		
 
           </div>
+		  
+		 <div class="col-md-4 col-sm-12">
+          <?php if (isset($_GET['layout']) && $_GET['layout'] == 'quickview'): ?>
+            <a href="?layout=fullview" class="btn btn-primary pull-right"> View Full View</a>
+             <?php else: ?>
+            <a href="?layout=quickview" class="btn btn-primary pull-right"> View Quickview</a>
+          <?php endif ?>		
+        </div>
+		
         </div>
       </div>
     </div>

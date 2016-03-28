@@ -50,7 +50,15 @@ jQuery(window).load(function () {
 
 
           jQuery('#' + project_category).waterfall();
-
+		  
+		   jQuery("#"+project_category+" img").each(function(){
+			  var image = jQuery(this); 
+			  if(image.context.naturalWidth == 0 || image.readyState == 'uninitialized'){  
+				 jQuery(image).unbind("error").hide();
+			  } 
+		   }); 
+		
+		  
           jQuery('#' + project_category).show();
 
           if (jQuery('.loading-div-' + project_category).size() > 0) {

@@ -1,7 +1,35 @@
+<?php if(!isset($_REQUEST['layout'])):?>
+<script type="text/javascript">
+    $url = 'http://'+'<?php echo $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'] ?>';    
+    if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))
+    {
+            <?php if(intval(strpos($_SERVER['REQUEST_URI'],'?')) > 0):?>
+                $url = $url+"&layout=quickview";    
+            <?php else:?>
+                $url = $url+"?layout=quickview";    
+            <?php endif;?>    
+            
+            window.location = $url;
+    }    
+</script>
+<?php endif;?>        
 <?php
 /*
   Template Name: Exclusives
  */
+
+global $deviceType;
+
+if($deviceType == 'tablet' || $deviceType == 'phone'){
+	
+	if(!(isset($_GET['layout']) && $_GET['layout'] == 'fullview')){
+		
+		$_GET['layout'] = 'quickview';
+	
+	}
+
+}
+
 get_header();
 ?>
 
@@ -62,7 +90,7 @@ get_header();
   </div>
 </section>
 
-<?php if (isset($_GET['layout'])): ?>
+<?php if (isset($_GET['layout']) && $_GET['layout'] == 'quickview'): ?>
 
   <section>
     <div class="container">
@@ -89,7 +117,7 @@ get_header();
           while (have_posts()): the_post();
             ?>
 
-            <div class="col-md-2 col-sm-3 quickview">
+            <div class="col-md-2 col-sm-3 col-xs-6 quickview">
 
               <?php
               $image = get_field('main_image_new');
@@ -99,18 +127,19 @@ get_header();
               <?php if ($image): ?>							
 
                 <a href="<?php the_permalink(); ?>">
-                  <?php $image_url = wp_get_attachment_image_src($image, $size); ?>
-                  <img class="img-responsive" src="<?php echo $image_url[0]; ?>" />
-                </a>								
+                  <?php $image_url = wp_get_attachment_image_src($image, $size); ?>                  
+				  <img class="img-responsive" src="<?php echo get_stylesheet_directory_uri(); ?>/image.php?<?php echo $image_url[0]; ?>&height=200&width=314&cropratio=1.50:1&amp;image=<?php echo $image_url[0]; ?>" />
+                </a>
 
-              <?php endif; ?>						
+              <?php endif; ?>
+			  
               <a href="<?php the_permalink(); ?>" class="text-decoration-none"><h3><?php the_title(); ?></h3></a>
               <div class="clearfix">&nbsp;</div>
             </div>
 
-            <?php if ($i % 6 == 0): ?>
+            <?php /* if ($i % 6 == 0): ?>
             </div><div class="row">
-            <?php endif ?>
+            <?php endif */ ?>
 
             <?php
             $i++;
@@ -210,7 +239,7 @@ get_header();
 
                 <?php foreach ($other_images as $other_image): ?>
 
-                  <?php if ($count < 3): ?>
+                  <?php if ($count < 5): ?>
 
                     <?php $display_image = wp_get_attachment_image_src($other_image, $size); ?>
 
@@ -231,7 +260,7 @@ get_header();
                     <?php if (is_array($display_image) && count($display_image) > 0): ?>
 
                       <?php /* <div class="swiper-slide empty" style="width:<?php echo $display_image[1]; ?>px !important;background:url('<?php echo get_stylesheet_directory_uri(); ?>/images/slide-loader.gif') no-repeat;background-position:center;height:auto;" data-lazy_href="<?php the_permalink(); ?>" data-lazy_src="<?php echo $display_image[0]; ?>"></div> */ ?>
-                      <div class="lazy-slides" data-lazy_href="<?php the_permalink(); ?>" data-lazy_src="<?php echo $display_image[0]; ?>"></div>
+                       <div class="lazy-slides" data-lazy_href="<?php the_permalink(); ?>" data-lazy_src="<?php echo $display_image[0]; ?>"></div>
 
                     <?php endif; ?>
 
@@ -331,12 +360,14 @@ get_header();
 
         </div>
         <div class="col-md-4 col-sm-12">
-          <?php if (isset($_GET['layout'])): ?> 
-            <a href="?<?php
+          <?php if (isset($_GET['layout']) && $_GET['layout'] == 'quickview'): ?>
+		  
+            <a href="?layout=fullview<?php
             if (isset($_GET['city'])) {
-              print ('city=' . $_GET['city']);
+              print ('&city=' . $_GET['city']);
             }
             ?>" class="btn btn-primary pull-right"> View Full View</a>
+			
              <?php else: ?>
             <a href="
             <?php

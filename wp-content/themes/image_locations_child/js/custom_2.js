@@ -12,16 +12,65 @@ var owl2 = jQuery('.owl-carousel.droppable-slider');
 var viewport = jQuery(window).width();
 
 
+function equalHeight(group) {
+  tallest = 0;
+  group.each(function () {
+    thisHeight = jQuery(this).height();
+    if (thisHeight > tallest) {
+      tallest = thisHeight;
+    }
+  });
+  group.height(tallest);
+}
+
+
 jQuery(window).load(function () {
   match_same_contact_box();
-
+  jQuery(document).trigger('resize');
 });
 
 jQuery(window).resize(function () {
   match_same_contact_box();
+
+  var viewPortResize = jQuery(window).width();
+  
+  if(viewPortResize >= 767)
+  {
+    jQuery('.mobile_small_Photo').attr('style','display:none !important;');  
+    jQuery('#mobile_header').attr('style','display:none !important;');  
+  }    
+  else
+  {
+    jQuery('.mobile_small_Photo').removeAttr('style');
+    jQuery('#mobile_header').removeAttr('style');
+  }
+  
 });
 
-jQuery(function () {
+
+
+jQuery(function (){
+    
+
+  jQuery(document).on('show', '#sharing_email .loading ', function () {
+    jQuery('.overlay').fadeIn();
+  });
+
+  jQuery(document).on('hide', '#sharing_email .loading ', function () {
+
+    setTimeout(function () {
+      if (jQuery('#sharing_email .response').size() > 0)
+      {
+        jQuery('.overlay').fadeIn();
+        if (jQuery('#sharing_email .response img').size() == 0)
+        {
+
+          $src = "http://imagelocations.com/wp-content/themes/image_locations_child/images/logo.jpg";
+          jQuery('#sharing_email .response').prepend('<img src="' + $src + '" class="img-responsive" style="margin-top: 2px;margin-bottom: 4px;"/>');
+        }
+      }
+    }, 500)
+  });
 
   var bLazy = new Blazy();
 
@@ -118,6 +167,7 @@ jQuery(function () {
   {
     var swiper = new Swiper('.swiper-container.moodboard-swiper', {
       pagination: null,
+      initialSlide: 0,
       nextButton: '.swiper-container.moodboard-swiper .swiper-button-next',
       prevButton: '.swiper-container.moodboard-swiper .swiper-button-prev',
       slidesPerView: 'auto',
@@ -134,6 +184,7 @@ jQuery(function () {
       freeMode: true,
       mousewheelControl: true,
       mousewheelReleaseOnEdges: false,
+      mousewheelForceToAxis: true,
       onSetTranslate: function (swiperObj, translate) {
 
         if (swiperObj.isEnd) {
@@ -143,9 +194,6 @@ jQuery(function () {
           }
           jQuery('.swiper-container.moodboard-swiper .lazy-slides').each(function () {
 
-            var total_images = 2;
-            var i = 0;
-
             var temp_src = jQuery(this).data('lazy_src');
             var a_id = jQuery(this).data('a_id');
             var drag_image = jQuery(this).data('drag_image');
@@ -153,22 +201,19 @@ jQuery(function () {
 
             jQuery(this).remove();
 
-            if (i < total_images) {
+            if (temp_src != "") {
 
-              if (temp_src != "") {
+              jQuery('.image_container').append('<img src="' + temp_src + '" class="new_image" width="100" />')
 
-                jQuery('.image_container').append('<img src="' + temp_src + '" class="new_image" width="100" />')
+              jQuery('.image_container').find('.new_image').removeClass('new_image');
 
-                jQuery('.image_container').find('.new_image').removeClass('new_image');
-
-                jQuery('.image_container').imagesLoaded(function () {
-                  swiperObj.appendSlide('<div class="swiper-slide"><img id="' + drag_image + '" data-thumb="' + thumb_id + '" class="swiper-lazy1 img-responsive" src="' + temp_src + '" /><a data-id="' + a_id + '" class="btn btn-add-moodboard" style="display: none;"></a></div>');
-                });
-
-              }
+              jQuery('.image_container').imagesLoaded(function () {
+                swiperObj.appendSlide('<div class="swiper-slide"><img id="' + drag_image + '" data-thumb="' + thumb_id + '" class="swiper-lazy1 img-responsive" src="' + temp_src + '" /><a data-id="' + a_id + '" class="btn btn-add-moodboard open-div" style="display: none;"></a></div>');
+              });
 
             }
-            i++;
+
+
           });
 
         }
@@ -176,8 +221,14 @@ jQuery(function () {
     });
 
     jQuery(document).on('dblclick', '.moodboard-swiper .swiper-wrapper .swiper-slide img', function () {
+
+    	//console.log('dbl click fired');
+
       if (jQuery(this).parent().find('.btn-add-moodboard').hasClass('open-div'))
       {
+
+      	//console.log('I am in');
+
         jQuery(this).parent().find('.btn-add-moodboard').trigger('click');
       }
     });
@@ -205,6 +256,7 @@ jQuery(function () {
       preloadImages: true,
       paginationHide: true,
       mousewheelControl: true,
+      mousewheelForceToAxis: true,
     });
   }
 
@@ -220,7 +272,8 @@ jQuery(function () {
         paginationClickable: true,
         spaceBetween: 0,
         loop: true,
-        grabCursor: true
+        grabCursor: true,
+        mousewheelForceToAxis: true,
       });
     });
   }
@@ -231,6 +284,7 @@ jQuery(function () {
 
       var swiper6 = new Swiper('.swiper-container.advance-search-result-' + index, {
         pagination: null,
+        initialSlide: 0,
         nextButton: '.swiper-container.advance-search-result .swiper-button-next-' + index,
         prevButton: '.swiper-container.advance-search-result .swiper-button-prev-' + index,
         slidesPerView: 'auto',
@@ -247,6 +301,7 @@ jQuery(function () {
         freeMode: true,
         mousewheelControl: true,
         mousewheelReleaseOnEdges: false,
+        mousewheelForceToAxis: true,
         onSetTranslate: function (swiperObj, translate) {
 
           if (swiperObj.isEnd) {
@@ -279,6 +334,7 @@ jQuery(function () {
           }
 
         }
+
       });
 
     });
@@ -291,6 +347,7 @@ jQuery(function () {
 
       var swiper6 = new Swiper('.swiper-container.category-all-' + index, {
         pagination: null,
+        initialSlide: 0,
         nextButton: '.swiper-container.category-all .swiper-button-next-' + index,
         prevButton: '.swiper-container.category-all .swiper-button-prev-' + index,
         slidesPerView: 'auto',
@@ -307,6 +364,7 @@ jQuery(function () {
         freeMode: true,
         mousewheelControl: true,
         mousewheelReleaseOnEdges: false,
+        mousewheelForceToAxis: true,
         onSetTranslate: function (swiperObj, translate) {
 
           if (swiperObj.isEnd) {
@@ -339,6 +397,7 @@ jQuery(function () {
           }
 
         }
+
       });
 
     });
@@ -351,6 +410,7 @@ jQuery(function () {
 
       var swiper6 = new Swiper('.swiper-container.category-new-' + index, {
         pagination: null,
+        initialSlide: 0,
         nextButton: '.swiper-container.category-new .swiper-button-next-' + index,
         prevButton: '.swiper-container.category-new .swiper-button-prev-' + index,
         slidesPerView: 'auto',
@@ -367,6 +427,7 @@ jQuery(function () {
         freeMode: true,
         mousewheelControl: true,
         mousewheelReleaseOnEdges: false,
+        mousewheelForceToAxis: true,
         onSetTranslate: function (swiperObj, translate) {
 
           if (swiperObj.isEnd) {
@@ -399,6 +460,7 @@ jQuery(function () {
           }
 
         }
+
       });
 
     });
@@ -417,6 +479,7 @@ jQuery(function () {
 
       var swiper6 = new Swiper('.swiper-container.category-exclusive-' + index, {
         pagination: null,
+        initialSlide: 0,
         nextButton: '.swiper-container.category-exclusive .swiper-button-next-' + index,
         prevButton: '.swiper-container.category-exclusive .swiper-button-prev-' + index,
         slidesPerView: 'auto',
@@ -433,8 +496,13 @@ jQuery(function () {
         freeMode: true,
         mousewheelControl: true,
         mousewheelReleaseOnEdges: false,
+        mousewheelForceToAxis: true,
+        onInit: function () {
+          jQuery(window).trigger('resize');
+          //jQuery('.swiper-container.category-exclusive-' + index).trigger("resize")
+        },
         onSetTranslate: function (swiperObj, translate) {
-
+          console.log('onSetTranslate called');
           if (swiperObj.isEnd) {
 
             if (jQuery('.swiper-container.category-exclusive-' + index + ' .swiper-scrollbar-drag').hasClass('scrollbar-default-width')) {
@@ -465,6 +533,7 @@ jQuery(function () {
           }
 
         }
+
       });
 
     });
@@ -477,6 +546,7 @@ jQuery(function () {
 
       var swiper6 = new Swiper('.swiper-container.single-project-' + index, {
         pagination: null,
+        initialSlide: 0,
         nextButton: '.swiper-container.single-project .swiper-button-next-' + index,
         prevButton: '.swiper-container.single-project .swiper-button-prev-' + index,
         slidesPerView: 'auto',
@@ -493,6 +563,7 @@ jQuery(function () {
         freeMode: true,
         mousewheelControl: true,
         mousewheelReleaseOnEdges: false,
+        mousewheelForceToAxis: true,
         onSetTranslate: function (swiperObj, translate) {
 
           if (swiperObj.isEnd) {
@@ -525,6 +596,7 @@ jQuery(function () {
           }
 
         }
+
       });
 
     });
@@ -537,6 +609,7 @@ jQuery(function () {
 
       var swiper6 = new Swiper('.swiper-container.single-permits-' + index, {
         pagination: null,
+        initialSlide: 0,
         nextButton: '.swiper-container.single-permits .swiper-button-next-' + index,
         prevButton: '.swiper-container.single-permits .swiper-button-prev-' + index,
         slidesPerView: 'auto',
@@ -553,6 +626,7 @@ jQuery(function () {
         freeMode: true,
         mousewheelControl: true,
         mousewheelReleaseOnEdges: false,
+        mousewheelForceToAxis: true,
         onSetTranslate: function (swiperObj, translate) {
 
           if (swiperObj.isEnd) {
@@ -585,6 +659,7 @@ jQuery(function () {
           }
 
         }
+
       });
 
     });
@@ -642,22 +717,21 @@ jQuery(function () {
 
     var imgCounter = 0;
 
-    jQuery('.moodboard-swiper .swiper-slide-gallery').each(function ()
+    //jQuery('.moodboard-swiper .swiper-slide-gallery').each(function ()
+    jQuery('.moodboard-swiper .swiper-slide').each(function ()
     {
       if (jQuery(this).find('img').size() > 0)
       {
         images += jQuery(this).find('img').attr('src') + ',';
         imgCounter++;
-
-        // console.log(jQuery(this).find('img').attr('src'));
+        console.log(jQuery(this).find('img').attr('src'));
       }
-
     });
 
-    jQuery('.moodboard-swiper .lazy-slides').each(function ()
+    jQuery('.moodboard-swiper .lazy-slides-gallery').each(function ()
     {
       images += jQuery(this).data('lazy_src') + ',';
-      // console.log(jQuery(this).data('lazy_src'));
+      console.log(jQuery(this).data('lazy_src'));
       imgCounter++;
     });
 
@@ -666,7 +740,7 @@ jQuery(function () {
     jQuery('#zip-frm #images').val(images);
     jQuery('#zip-frm #zip_url').val(url);
     jQuery('#zip-frm #zip_path').val(path);
-    jQuery('#zip-frm').attr('action', object_name.stylesheet_directory_uri + '/makezip.php');
+    jQuery('#zip-frm').attr('action', 'http://imageloctions.wpengine.com/wp-content/themes/image_locations_child/makezip.php');
 
     setTimeout(function () {
       jQuery('#zip-frm').submit();
@@ -805,12 +879,12 @@ jQuery(function () {
 
 
   homepage_featured_location_img.owlCarousel({
-    loop: false,
+    loop: true,
     autoWidth: false,
     items: 1,
     nav: true,
     autoplay: true,
-    lazyLoad: true,
+//    lazyLoad: true,
   });
 
   // make disabled arrows on reached first/last item of carousel [start]
@@ -837,7 +911,7 @@ jQuery(function () {
     nav: true,
     dots: true,
     autoplay: true,
-    lazyLoad: true,
+//    lazyLoad: true,
     responsive: {
       0: {
         items: 1
@@ -888,6 +962,18 @@ jQuery(function () {
 
 });
 
+function getUrlParameter(sParam) {
+  var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+		  sURLVariables = sPageURL.split('&'),
+		  sParameterName,
+		  i;
+  for (i = 0; i < sURLVariables.length; i++) {
+	sParameterName = sURLVariables[i].split('=');
+	if (sParameterName[0] === sParam) {
+	  return sParameterName[1] === undefined ? true : sParameterName[1];
+	}
+  }
+}
 
 /*--------------------------------------------------------*/
 
@@ -993,6 +1079,7 @@ jQuery(function () {
     {
       // do nothing
       // return false;
+      //console.log('Do Nothing here');
     }
     else
     {
@@ -1013,6 +1100,8 @@ jQuery(function () {
 //    jQuery('.select_multiple').multiselect({
 //        includeSelectAllOption: true
 //    });
+
+  jQuery(document).trigger('resize');
 
 })
 

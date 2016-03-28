@@ -39,7 +39,97 @@
   </style>
   <body <?php body_class(); ?>>
 
-    <header>
+<header id="mobile_header">
+
+<div class="logo_sec">
+  <div class="container">
+    <div class="row">
+
+    <div class="col-xs-12">
+    <a class="navbar-brand" href="<?php echo site_url(); ?>"><img src="<?php echo get_stylesheet_directory_uri() ?>/images/logo.jpg" height="40" width="541" class="img-responsive" alt=""></a>
+    </div>
+
+    </div>
+  </div>
+</div>
+
+  <div class="top_sec">
+  <div class="container">
+    <div class="top_text"><?php the_widget('Header'); ?><?php dynamic_sidebar('Header'); ?></div>
+  </div>
+  </div>
+  <div class="clearfix"></div>
+
+  
+  <div class="logo_sec">
+  <div class="container">
+    <div class="row">
+    
+    <div class="col-xs-10 pull-right">
+      <div class="row">
+      <div class="col-md-8 col-sm-9 pd_left">
+
+        <form method="GET" action="<?php echo site_url(); ?>">
+
+        <div class="custom-search-input">
+          <div class="input-group col-md-12">
+          <input name="s" type="text" class="search-query form-control" placeholder="Search (ie: Modern, Pool, Beverly Hills)" />
+          <span class="input-group-btn">
+            <button class="btn btn-danger" type="submit">
+            <span class=" glyphicon glyphicon-search"></span>
+            </button>
+          </span>
+          </div>
+        </div>
+
+        </form>
+
+      </div>
+      </div>
+    </div>
+    
+        <div class="nav_sec">
+          <nav class="navbar navbar-default" role="navigation">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle navbar_toggle_2 toggle-burger-menu">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            </button>
+          </div>
+          <div class="mobile_nav" id="bs-example-navbar-collapse-2" style="display:none">
+
+            <?php
+            $defaults = array(
+              'theme_location' => 'primary',
+              'container' => false,
+              'menu_class' => 'menu',
+              'menu_id' => 'menu-header',
+              'echo' => true,
+              'fallback_cb' => 'wp_page_menu',
+              'items_wrap' => '<ul class="nav navbar-nav" id="%1$s">%3$s</ul>',
+              'depth' => 2,
+            );
+            wp_nav_menu($defaults);
+            ?>
+
+            <div class="clearfix"></div>
+          </div>
+
+
+          </nav>
+        </div>      
+    
+    </div>
+
+  </div>
+  </div>
+  <div class="clearfix"></div>
+
+</header>
+
+<header id="main_header">
       <div class="top_sec">
         <div class="container">
           <div class="top_text"><?php the_widget('Header'); ?><?php dynamic_sidebar('Header'); ?></div>
@@ -51,7 +141,11 @@
       <div class="logo_sec">
         <div class="container">
           <div class="row">
-            <div class="col-md-7 col-sm-4 col-xs-12"><a class="navbar-brand" href="<?php echo site_url(); ?>"><img src="<?php echo get_stylesheet_directory_uri() ?>/images/logo.jpg" height="40" width="541" class="img-responsive" alt=""></a></div>
+            <div class="col-md-7 col-sm-4 col-xs-12">
+        <a class="navbar-brand" href="<?php echo site_url(); ?>"><img src="<?php echo get_stylesheet_directory_uri() ?>/images/logo.jpg" height="40" width="541" class="img-responsive" alt=""></a>
+      </div>
+      
+      
             <div class="col-md-5 col-sm-8 col-xs-12">
               <div class="row">
                 <div class="col-md-8 col-sm-9 pd_left">
@@ -114,26 +208,6 @@
 
               <div class="clearfix"></div>
             </div>
-
-            <div class="mobile_nav" id="bs-example-navbar-collapse-2" style="display:none">
-
-              <?php
-              $defaults = array(
-                  'theme_location' => 'primary',
-                  'container' => false,
-                  'menu_class' => 'menu',
-                  'menu_id' => 'menu-header',
-                  'echo' => true,
-                  'fallback_cb' => 'wp_page_menu',
-                  'items_wrap' => '<ul class="nav navbar-nav" id="%1$s">%3$s</ul>',
-                  'depth' => 2,
-              );
-              wp_nav_menu($defaults);
-              ?>
-
-              <div class="clearfix"></div>
-            </div>
-
 
           </nav>
         </div>
