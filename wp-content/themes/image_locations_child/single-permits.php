@@ -1,3 +1,23 @@
+<?php
+$segments = explode('/', trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/'));
+
+$first_page_url = site_url() . "/permits/" . $segments[1] . "/1";
+
+ 
+global $deviceType;
+
+/*if($deviceType == 'tablet' || $deviceType == 'phone'){
+	
+	if(!(isset($_GET['layout']) && $_GET['layout'] == 'fullview')){
+		
+		$_GET['layout'] = 'quickview';
+	
+	}
+
+}
+*/
+get_header();
+?>
 <?php if(!isset($_REQUEST['layout'])):?>
 <script type="text/javascript">
     $url = 'http://'+'<?php echo $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'] ?>';    
@@ -17,27 +37,6 @@
     }    
 </script>
 <?php endif;?>
-<?php
-$segments = explode('/', trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/'));
-
-$first_page_url = site_url() . "/permits/" . $segments[1] . "/1";
-
- 
-global $deviceType;
-
-if($deviceType == 'tablet' || $deviceType == 'phone'){
-	
-	if(!(isset($_GET['layout']) && $_GET['layout'] == 'fullview')){
-		
-		$_GET['layout'] = 'quickview';
-	
-	}
-
-}
-
-get_header();
-?>
-
 
 <!--------title------------->
 <section>
@@ -45,7 +44,7 @@ get_header();
     <div class="title_sec">
       <div class="row">
 
-        <div class="col-md-4 col-sm-4"><h2>Permit | 
+        <div class="col-md-8 col-sm-12"><h2>Permit | 
             <?php if (has_post_thumbnail()): ?> 
 
               <?php the_post_thumbnail('thumbnail', array('class', 'img-responsive single-permit-logo')); ?>        
@@ -54,16 +53,14 @@ get_header();
 
           </h2></div>
 
-        <div class="col-md-6 col-sm-4 text-left">            
-
-
-
-        </div>
-
-        <div class="col-md-2 col-sm-4">
-
-        </div>                                
-
+		<div class="col-md-4 col-sm-4 text-right">
+		  <?php if (isset($_GET['layout']) && $_GET['layout'] == 'quickview'): ?>
+			<a href="?layout=fullview" class="btn btn-primary pull-right"> View Full View</a>
+			 <?php else: ?>
+			<a href="?layout=quickview" class="btn btn-primary pull-right"> View Quickview</a>
+		  <?php endif ?>							
+		</div>
+			
       </div>
 
     </div>

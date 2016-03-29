@@ -1,18 +1,3 @@
-<?php if(!isset($_REQUEST['layout'])):?>
-<script type="text/javascript">
-    $url = 'http://'+'<?php echo $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'] ?>';    
-    if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))
-    {
-            <?php if(intval(strpos($_SERVER['REQUEST_URI'],'?')) > 0):?>
-                $url = $url+"&layout=quickview";    
-            <?php else:?>
-                $url = $url+"?layout=quickview";    
-            <?php endif;?>    
-            
-            window.location = $url;
-    }    
-</script>
-<?php endif;?>        
 <?php
 /*
   Template Name: Exclusives
@@ -32,6 +17,21 @@ if($deviceType == 'tablet' || $deviceType == 'phone'){
 
 get_header();
 ?>
+<?php if(!isset($_REQUEST['layout'])):?>
+<script type="text/javascript">
+    $url = 'http://'+'<?php echo $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'] ?>';    
+    if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))
+    {
+            <?php if(intval(strpos($_SERVER['REQUEST_URI'],'?')) > 0):?>
+                $url = $url+"&layout=quickview";    
+            <?php else:?>
+                $url = $url+"?layout=quickview";    
+            <?php endif;?>    
+            
+            window.location = $url;
+    }    
+</script>
+<?php endif;?>        
 
 <!--------title------------->
 <section>
@@ -39,7 +39,7 @@ get_header();
     <div class="title_sec">
       <div class="row">
 
-        <div class="col-md-4 col-sm-4"><h2>Exclusives</h2>
+        <div class="col-md-4 col-sm-5"><h2>Exclusives</h2>
           <?php
           if (function_exists('sharing_display')) {
             sharing_display('', true);
@@ -47,43 +47,70 @@ get_header();
           ?>				
         </div>
 
-        <div class="col-md-6 col-sm-4 text-right"></div>
+        <div class="col-md-2 col-sm-1 text-right">
+        </div>
 
-        <div class="col-md-2 col-sm-4">
+		<div class="col-md-6 col-sm-6">
+            <div class="row">
+				<div class="col-md-4"></div>
+						
+				  <?php if (isset($_GET['city'])): ?>
+					<div class="col-md-5 category-btn-area pd-0 col-sm-6">
+						
+						<a class="btn btn-primary pull-right" href="<?php
+						if (isset($_GET['layout'])) {
+						  echo '?layout=quickview';
+						} else {
+						  echo '?layout=fullview';
+						}
+						?>">View All Cities</a>
 
-          <?php if (isset($_GET['city'])): ?>
+					</div>
+				  <?php else: ?>
+					<div class="col-md-5 category-btn-area pd-0 col-sm-6">
+						
+						<select class="form-control" id="city_selection_dropdown">
 
-            <a class="btn btn-primary pull-right" href="<?php
-            if (isset($_GET['layout'])) {
-              echo '?layout=quickview';
-            } else {
-              echo '?';
-            }
-            ?>">View All Cities</a>
+						  <option value="<?php echo site_url(); ?>/category/exclusives/<?php echo (isset($_GET['layout']) && $_GET['layout'] == 'quickview') ? '?layout=quickview' : '?layout=fullview'; ?>">All Cities</option>
 
-          <?php else: ?>
+						  <?php $allcities = array(); ?>
+						  <?php while (have_posts()) : the_post(); ?>   
+							<?php $city1 = get_field('city_address'); ?>
+							<?php if ($city1): ?>
+							  <?php if (!in_array($city1, $allcities)): ?>
+								<option value="<?php echo site_url(); ?>/category/exclusives/?city=<?php echo urlencode($city1); ?><?php echo (isset($_GET['layout']) && $_GET['layout'] == 'quickview') ? '&layout=quickview' : '&layout=fullview'; ?>"><?php echo $city1; ?></option>
+								<?php $allcities[] = $city1; ?>
+							  <?php endif; ?>
+							<?php endif ?>
+						  <?php endwhile; ?>						
 
-            <select class="form-control" id="city_selection_dropdown">
+						</select> 
 
-              <option value="<?php echo site_url(); ?>/category/exclusives/<?php echo isset($_GET['layout']) ? '?layout=quickview' : ''; ?>">All Cities</option>
-
-              <?php $allcities = array(); ?>
-              <?php while (have_posts()) : the_post(); ?>   
-                <?php $city1 = get_field('city_address'); ?>
-                <?php if ($city1): ?>
-                  <?php if (!in_array($city1, $allcities)): ?>
-                    <option value="<?php echo site_url(); ?>/category/exclusives/?city=<?php echo urlencode($city1); ?><?php echo isset($_GET['layout']) ? '&layout=quickview' : ''; ?>"><?php echo $city1; ?></option>
-                    <?php $allcities[] = $city1; ?>
-                  <?php endif; ?>
-                <?php endif ?>
-              <?php endwhile; ?>						
-
-            </select> 
-
-          <?php endif; ?>
-
-        </div>                                
-
+					</div>
+				  <?php endif; ?>
+		
+					<div class="col-md-3 col-sm-6 mob-pd-0">
+						<?php if (isset($_GET['layout']) && $_GET['layout'] == 'quickview'): ?>
+						  <a href="?layout=fullview<?php
+						  if (isset($_GET['city'])) {
+							print ('&city=' . $_GET['city']);
+						  }
+						  ?>" class="btn btn-primary"> View Full View</a>
+						   <?php else: ?>
+						  <a href="
+						  <?php
+						  if (isset($_GET['city'])) {
+							print ('?city=' . $_GET['city'] . '&');
+						  } else {
+							print ('?');
+						  }
+						  ?>layout=quickview" class="btn btn-primary pull-right"> View Quickview</a>
+						<?php endif ?>		                    
+					</div>
+				
+			</div>
+		</div>
+            
       </div>
 
     </div>
@@ -98,20 +125,20 @@ get_header();
         <div class="row">
 
           <?php
-          global $query_string;
+          /*global $query_string;
 
           $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
-          query_posts($query_string . '&paged=' . $paged . '&posts_per_page=40');
+          query_posts($query_string . '&paged=' . $paged . '&posts_per_page=20');
 
           if (!have_posts()):
 
-            if ($paged > 0) {
+            /*if ($paged > 0) {
               $paged = $paged / 2;
             }
 
-            query_posts($query_string . '&paged=' . $paged . '&posts_per_page=40');
+            query_posts($query_string . '&paged=' . $paged . '&posts_per_page=20');
 
-          endif;
+          endif;*/
 
           $i = 1;
           while (have_posts()): the_post();
@@ -361,13 +388,11 @@ get_header();
         </div>
         <div class="col-md-4 col-sm-12">
           <?php if (isset($_GET['layout']) && $_GET['layout'] == 'quickview'): ?>
-		  
             <a href="?layout=fullview<?php
             if (isset($_GET['city'])) {
               print ('&city=' . $_GET['city']);
             }
             ?>" class="btn btn-primary pull-right"> View Full View</a>
-			
              <?php else: ?>
             <a href="
             <?php

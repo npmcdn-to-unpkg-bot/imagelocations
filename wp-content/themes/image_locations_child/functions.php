@@ -74,6 +74,8 @@ function enqueue_parent_styles() {
   wp_enqueue_script('jquery-waitforimages-js', get_stylesheet_directory_uri() . '/js/jquery.waitforimages.js', array(), false, true);
 
   wp_register_script('my-script', get_stylesheet_directory_uri() . '/js/myscript.js');
+  wp_enqueue_script('mousewheel', get_stylesheet_directory_uri() . '/js/jquery.mousewheel.js', array(), false, true);
+  
   wp_enqueue_script('my-script');
   $translation_array = array(
       'stylesheet_directory_uri' => get_stylesheet_directory_uri(),

@@ -199,12 +199,19 @@ section .slider_sec .caption{bottom:0px;}
     section .buttom_pagi_sec .btn-primary
     {
      margin-top: 10px !important;
-     margin-bottom: 4px !important;
-     font-weight: bold;
-     font-size: 14px;
+     margin-bottom: 4px !important;         
+	 font-family:HelveticaNeueLTStd-Lt;
+	 font-size:13px;
+	 text-transform:uppercase;
+	 background-color:#ff4040;
+	 border-color:#e52525;
+	 color:#fff!important;
     }  
 	
-	section .skystudio_sec{margin-top:15px;}
+section .skystudio_sec{margin-top:15px;}
+.mob-pd-0{ padding:0px !important; }
+section .title_sec .btn.btn-primary{ color:#fff !important; }
+
 }
 
 

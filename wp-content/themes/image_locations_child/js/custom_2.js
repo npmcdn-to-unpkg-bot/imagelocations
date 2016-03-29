@@ -1,4 +1,3 @@
-
 /* 
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -712,8 +711,8 @@ jQuery(function (){
 
     var images = '';
 
-    var url = object_name.stylesheet_directory_url;
-    var path = object_name.stylesheet_directory;
+    var url = "http://imagelocations.com/wp-content/themes/image_locations_child";
+    var path = "/nas/content/live/imageloctions/wp-content/themes/image_locations_child";
 
     var imgCounter = 0;
 
@@ -740,7 +739,7 @@ jQuery(function (){
     jQuery('#zip-frm #images').val(images);
     jQuery('#zip-frm #zip_url').val(url);
     jQuery('#zip-frm #zip_path').val(path);
-    jQuery('#zip-frm').attr('action', 'http://imageloctions.wpengine.com/wp-content/themes/image_locations_child/makezip.php');
+    jQuery('#zip-frm').attr('action', 'http://imagelocations.com/wp-content/themes/image_locations_child/makezip.php');
 
     setTimeout(function () {
       jQuery('#zip-frm').submit();
@@ -905,7 +904,7 @@ jQuery(function (){
 
 
   homepage_featured_right_slider.owlCarousel({
-    loop: false,
+    loop: true,
     autoWidth: false,
     items: 1,
     nav: true,
@@ -1036,7 +1035,7 @@ jQuery(function () {
 
   jQuery(document).on('click', '.photo_close', function () {
     jQuery(this).parent().remove();
-    resetMoodboardSlider();
+    resetMoodboardSlider(1);
   });
 
   jQuery(document).on('click', '.btn-delete-img', function () {
@@ -1052,7 +1051,7 @@ jQuery(function () {
 
     jQuery('.owl-carousel.droppable-slider').html('');
     jQuery('.owl-carousel.droppable-slider').html(imageHtml);
-    resetMoodboardSlider();
+    resetMoodboardSlider(1);
 
   });
   jQuery(document).on('click', '.btn-add-moodboard', function () {
@@ -1093,7 +1092,7 @@ jQuery(function () {
       jQuery('.owl-carousel.droppable-slider').append($html);
     }
 
-    resetMoodboardSlider();
+    resetMoodboardSlider(0);
 
   });
 
@@ -1111,7 +1110,7 @@ function match_same_contact_box()
   jQuery('.container .contact_sec .green_bg').css('height', (parseInt(jQuery('.container .contact_sec .view.view-sixth:first').css('height')) - 1) + "px");
 }
 
-function resetMoodboardSlider()
+function resetMoodboardSlider(from_delete)
 {
 
 
@@ -1133,7 +1132,8 @@ function resetMoodboardSlider()
     jQuery('.owl-carousel.droppable-slider').data('owlCarousel').destroy();
     jQuery('.owl-carousel.droppable-slider').trigger('destroy.droppable-slider');
 
-    jQuery('.owl-carousel.droppable-slider').owlCarousel({
+    var owlDrop = jQuery('.owl-carousel.droppable-slider');
+    owlDrop.owlCarousel({
       margin: 3,
       loop: false,
       items: 5,
@@ -1162,6 +1162,23 @@ function resetMoodboardSlider()
         }
       }
     })
+    // console.log("Reset Slide"+jQuery('.owl-carousel.droppable-slider .owl-stage').size())    
+    owlDrop.on('mousewheel', '.owl-stage', function (e) {
+        console.log("IN Wheeel");
+        if (e.deltaY>0) {
+            owlDrop.trigger('next.owl');
+        } else {
+            owlDrop.trigger('prev.owl');
+        }
+        e.preventDefault();
+    });		
+    
+    setTimeout(function(){
+        // console.log("Total => "+jQuery('.owl-carousel.droppable-slider .item').length);    
+        if(from_delete == 0)
+        owlDrop.trigger('to.owl.carousel', jQuery('.owl-carousel.droppable-slider .item').length);        
+    },500);
+    
   }
 
 
@@ -1215,7 +1232,7 @@ function drop(ev)
   else
   {
     $html = '<div class="photo_mood">';
-    $html += '<a href="javascript:void(0);" class="photo_close"><img src="' + object_name.templateUrl + '/images/img_close_icon.png" width="10" height="10"></a>';
+    $html += '<a href="javascript:void(0);" class="photo_close"><img src="' + 'http://imagelocations.com/wp-content/themes/image_locations_child' + '/images/img_close_icon.png" width="10" height="10"></a>';
     $html += '<img src="' + data + '" width="100%" height="60" class="item_img"/>';
     $html += '<div class="clearfix"></div>';
     $html += '</div>';

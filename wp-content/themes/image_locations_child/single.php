@@ -600,7 +600,7 @@ $location_post_slug = $post->post_name;
       <section>
         <div class="location_pdf_popup">
           <h4>Generate Custom PDF</h4>
-          <form id="pdf_generate_form" method="POST" action="http://imageloctions.wpengine.com/wp-content/themes/image_locations_child/actionpdf.php" target="_blank" class="form-parlsey">
+          <form id="pdf_generate_form" method="POST" action="http://imagelocations.com/wp-content/themes/image_locations_child/actionpdf.php" target="_blank" class="form-parlsey">
 
             <div class="form-group">
               <label for="PDF Title">PDF Title: </label>
@@ -631,7 +631,7 @@ $location_post_slug = $post->post_name;
       <section>
         <div class="location_pdf_moodboard_popup">
           <h4>Generate Custom PDF</h4>
-          <form id="pdf_generate_moodboard" method="POST" action="http://imageloctions.wpengine.com/wp-content/themes/image_locations_child/actionpdf.php" target="_blank" class="form-parlsey-2">
+          <form id="pdf_generate_moodboard" method="POST" action="http://imagelocations.com/wp-content/themes/image_locations_child/actionpdf.php" target="_blank" class="form-parlsey-2">
 
             <div class="form-group">
               <label for="PDF Title">PDF Title: </label>
@@ -899,6 +899,13 @@ $location_post_slug = $post->post_name;
       jQuery('.moodboard-swiper .swiper-slide').each(function ()
       {
         var my_img = jQuery(this).children('img').attr('src');
+        arr += my_img + ',';
+        i++;
+      });
+      
+      jQuery('.moodboard-swiper .lazy-slides-gallery').each(function ()
+      {
+        var my_img = jQuery(this).attr('data-lazy_src');
         arr += my_img + ',';
         i++;
       });

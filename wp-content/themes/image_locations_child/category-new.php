@@ -1,3 +1,23 @@
+<?php
+/*
+  Template Name: New
+ */
+
+global $deviceType;
+
+//if($deviceType == 'tablet' || $deviceType == 'phone'){
+//	
+//	if(!(isset($_GET['layout']) && $_GET['layout'] == 'fullview')){
+//		
+//		$_GET['layout'] = 'quickview';
+//	
+//	}
+//
+//}
+ 
+get_header();
+
+?>
 <?php if(!isset($_REQUEST['layout'])):?>
 <script type="text/javascript">
     $url = 'http://'+'<?php echo $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'] ?>';    
@@ -17,26 +37,6 @@
     }    
 </script>
 <?php endif;?>
-<?php
-/*
-  Template Name: New
- */
-
-global $deviceType;
-
-if($deviceType == 'tablet' || $deviceType == 'phone'){
-	
-	if(!(isset($_GET['layout']) && $_GET['layout'] == 'fullview')){
-		
-		$_GET['layout'] = 'quickview';
-	
-	}
-
-}
- 
-get_header();
-
-?>
 
 <!--------title------------->
 <section>
@@ -59,12 +59,12 @@ get_header();
                 <div class="col-md-4"></div>
                         
                         <?php if (isset($_GET['city'])): ?>
-                        <div class="col-md-5 category-btn-area pd-0 col-sm-6">                        
+                        <div class="col-md-5 category-btn-area pd-0 col-sm-6">
                           <a class="btn btn-primary pull-right" href="<?php
-                          if (isset($_GET['layout'])) {
+                          if (isset($_GET['layout']) && $_GET['layout'] == 'quickview') {
                             echo '?layout=quickview';
                           } else {
-                            echo '?';
+                            echo '?layout=fullview';
                           }
                           ?>">View All Cities</a>
                         </div>        
@@ -73,9 +73,11 @@ get_header();
                           <select class="form-control" id="city_selection_dropdown">
 
                             <option value="<?php echo site_url(); ?>/category/new/<?php
-                            if (isset($_GET['layout'])) {
+                            if (isset($_GET['layout']) && $_GET['layout'] == 'quickview') {
                               print ('?layout=quickview');
-                            }
+                            }else{
+								print ('?layout=fullview');
+							}
                             ?>">All Cities</option>
 
                             <?php $allcities = array(); ?>
@@ -89,9 +91,11 @@ get_header();
                                 <?php if (!in_array($city1, $allcities)): ?>
 
                                   <option value="<?php echo site_url(); ?>/category/new/?city=<?php echo urlencode($city1); ?><?php
-                                  if (isset($_GET['layout'])) {
+                                  if (isset($_GET['layout']) && $_GET['layout'] == 'quickview') {
                                     print ('&layout=quickview');
-                                  }
+                                  }else{
+									print ('&layout=fullview');  
+								  }
                                   ?>"><?php echo $city1; ?></option>
 
                                   <?php $allcities[] = $city1; ?>
@@ -104,9 +108,9 @@ get_header();
 
                           </select> 
                         </div>    
-                        <?php endif; ?>                    
+                        <?php endif; ?>
                 
-                <div class="col-md-3 col-sm-6">
+                <div class="col-md-3 col-sm-6 mob-pd-0">
                     <?php if (isset($_GET['layout']) && $_GET['layout'] == 'quickview'): ?>
                       <a href="?layout=fullview<?php
                       if (isset($_GET['city'])) {
@@ -124,7 +128,8 @@ get_header();
                       ?>layout=quickview" class="btn btn-primary pull-right"> View Quickview</a>
                     <?php endif ?>		                    
                 </div>
-            </div>              
+            
+			</div>              
         </div>                                
       </div>
       <div class="clearfix">&nbsp;</div>
@@ -140,9 +145,9 @@ get_header();
         <div class="row mr-left-10">
 
           <?php
-          global $query_string;
+          /*global $query_string;
           $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
-          query_posts($query_string . '&paged=' . $paged . '&posts_per_page=40');
+          query_posts($query_string . '&paged=' . $paged . '&posts_per_page=40');*/
           ?>
 
           <?php

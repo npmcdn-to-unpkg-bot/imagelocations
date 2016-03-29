@@ -49,7 +49,7 @@ $main_location_slider = get_posts($args);
                               <?php /* <img class="img-responsive" src="<?php echo $slider['banner_slideshow_image']['sizes']['home_slide_image']; ?>" width="<?php echo $slider['banner_slideshow_image']['sizes']['home_slide_image-width']; ?>" height="<?php echo $slider['banner_slideshow_image']['sizes']['home_slide_image-height']; ?>" alt="<?php echo $slider['banner_slideshow_title']; ?>" />*/ ?>
                             </a>
 							<div class="caption">
-								<h3><?php echo $slider['banner_slideshow_title']; ?></h3>
+								<a href="<?php echo $slider['banner_slideshow_link']; ?>" class="text-decoration-none"><h3><?php echo $slider['banner_slideshow_title']; ?></h3></a>
 								<?php /*if($slider['banner_slideshow_location_city'] != ""): ?>
 									<h2><span>|</span><?php echo $slider['banner_slideshow_location_city']; ?></h2>
 								<?php endif; */ ?>

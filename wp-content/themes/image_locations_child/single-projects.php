@@ -1,3 +1,24 @@
+<?php
+$segments = explode('/', trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/'));
+
+$first_page_url = site_url()."/projects/".$segments[1]."/1";
+
+
+global $deviceType;
+
+//if($deviceType == 'tablet' || $deviceType == 'phone'){
+//	
+//	if(!(isset($_GET['layout']) && $_GET['layout'] == 'fullview')){
+//		
+//		$_GET['layout'] = 'quickview';
+//	
+//	}
+//
+//}
+
+get_header();
+
+?>
 <?php if(!isset($_REQUEST['layout'])):?>
 <script type="text/javascript">
     $url = 'http://'+'<?php echo $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'] ?>';    
@@ -17,30 +38,7 @@
     }    
 </script>
 <?php endif;?>        
-<?php
-$segments = explode('/', trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/'));
 
-$first_page_url = site_url()."/projects/".$segments[1]."/1";
-/*
-  Template Name: Exclusives
- */
- 
- 
-global $deviceType;
-
-if($deviceType == 'tablet' || $deviceType == 'phone'){
-	
-	if(!(isset($_GET['layout']) && $_GET['layout'] == 'fullview')){
-		
-		$_GET['layout'] = 'quickview';
-	
-	}
-
-}
-
-get_header();
-
-?>
 <style>
     .liked_locations{display: none !important;}
 </style>
@@ -61,7 +59,7 @@ get_header();
 					<?php endif; ?>
 				</div>
 				
-            	<div class="col-md-8 col-sm-8">
+            	<div class="col-md-8 col-sm-12">
 					<h2>
 						Project | <?php the_title(); ?>
 					</h2>
@@ -81,7 +79,13 @@ get_header();
 
 						<div  class="zip-link unhide" id="unhide" style="display:inline-block; float:right; margin-right: 3px; margin-top: 0px;"><a id="unhide_link" class="btn btn-primary" style="color:#777;">Unhide All</a></div>
 
-
+						  <?php if (isset($_GET['layout']) && $_GET['layout'] == 'quickview'): ?>
+							<a href="?layout=fullview" class="btn btn-primary project pull-right"> View Full View</a>
+							 <?php else: ?>
+							<a href="?layout=quickview" class="btn btn-primary project pull-right"> View Quickview</a>
+						  <?php endif ?>		
+						
+						
 						<div id="email_form" style="display:none; width:400px;">
 								
 						  <section>
@@ -108,7 +112,18 @@ get_header();
 
 					</div>
 					
+				<?php else: ?>				
+				
+				<div class="col-md-4 col-sm-4 text-right">
+				  <?php if (isset($_GET['layout']) && $_GET['layout'] == 'quickview'): ?>
+					<a href="?layout=fullview" class="btn btn-primary pull-right"> View Full View</a>
+					 <?php else: ?>
+					<a href="?layout=quickview" class="btn btn-primary pull-right"> View Quickview</a>
+				  <?php endif ?>							
+				</div>
+				
 				<?php endif; ?>
+				
 				
             </div>
         	
@@ -415,7 +430,7 @@ if ($wp_query):?>
 			var action_get = 'getLikeLocations';			
 			$.ajax({
 			  method: "POST",
-			  url: "http://imageloctions.wpengine.com/wp-content/themes/image_locations_child/like-hide.php",
+			  url: "http://imagelocations.com/wp-content/themes/image_locations_child/like-hide.php",
 			  data: { action: action_get}
 			}).done(function( data ) {
 				
@@ -442,7 +457,7 @@ if ($wp_query):?>
 			var action_get = 'getHideLocations';			
 			$.ajax({
 			  method: "POST",
-			  url: "http://imageloctions.wpengine.com/wp-content/themes/image_locations_child/like-hide.php",
+			  url: "http://imagelocations.com/wp-content/themes/image_locations_child/like-hide.php",
 			  data: { action: action_get}
 			}).done(function( data ) {
 				
@@ -489,7 +504,7 @@ if ($wp_query):?>
 				
 				$.ajax({
 				  method: "POST",
-				  url: "http://imageloctions.wpengine.com/wp-content/themes/image_locations_child/like-hide.php",
+				  url: "http://imagelocations.com/wp-content/themes/image_locations_child/like-hide.php",
 				  data: { action: act, entry: entry_label, href: href }
 				}).done(function( locations ) {
 					//console.log(locations);
@@ -510,7 +525,7 @@ if ($wp_query):?>
 				
 				$.ajax({
 				  method: "POST",
-				  url: "http://imageloctions.wpengine.com/wp-content/themes/image_locations_child/like-hide.php",
+				  url: "http://imagelocations.com/wp-content/themes/image_locations_child/like-hide.php",
 				  data: { action: act, entry: entry_label, href: href }
 				}).done(function( locations ) {
 					
@@ -531,7 +546,7 @@ if ($wp_query):?>
 
 				$.ajax({
 				  method: "POST",
-				  url: "http://imageloctions.wpengine.com/wp-content/themes/image_locations_child/like-hide.php",
+				  url: "http://imagelocations.com/wp-content/themes/image_locations_child/like-hide.php",
 				  data: { action: act, hidden: hidden }
 				}).done(function( locations ) {
 					
