@@ -739,7 +739,7 @@ jQuery(function (){
     jQuery('#zip-frm #images').val(images);
     jQuery('#zip-frm #zip_url').val(url);
     jQuery('#zip-frm #zip_path').val(path);
-    jQuery('#zip-frm').attr('action', 'http://imagelocations.com/wp-content/themes/image_locations_child/makezip.php');
+    jQuery('#zip-frm').attr('action', 'http://imageloctions.wpengine.com/wp-content/themes/image_locations_child/makezip.php');
 
     setTimeout(function () {
       jQuery('#zip-frm').submit();

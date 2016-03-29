@@ -500,7 +500,7 @@ if ($wp_query):?>
 				
 				updateLikedLocations();
 				
-				//$.post('/wp-content/themes/image_locations_child/like-hide.php?action=' + act, {entry: entry_label, href: href});
+			
 				
 				$.ajax({
 				  method: "POST",
@@ -521,8 +521,7 @@ if ($wp_query):?>
 				
 				//$(this).parent('section').addClass('hide');
 				
-				//$.post('/wp-content/themes/image_locations_child/likehide.php?act=hide', {entry: entry_label, href: href});
-				
+			
 				$.ajax({
 				  method: "POST",
 				  url: "http://imagelocations.com/wp-content/themes/image_locations_child/like-hide.php",
