@@ -75,7 +75,9 @@ $height			= $size[1];
 
 $maxWidth		= (isset($_GET['width'])) ? (int) $_GET['width'] : 0;
 $maxHeight		= (isset($_GET['height'])) ? (int) $_GET['height'] : 0;
-
+$fixed_ratio		= (isset($_GET['fixed_ratio'])) ? $_GET['fixed_ratio'] : 0;
+$givenWidth = $maxWidth;
+$givenHeight = $maxHeight;
 
 if (isset($_GET['color']))
 	$color		= preg_replace('/[^0-9a-fA-F]/', '', (string) $_GET['color']);
@@ -98,6 +100,12 @@ elseif ($color && !$maxWidth && !$maxHeight)
 {
 	$maxWidth	= $width;
 	$maxHeight	= $height;
+}
+
+if($fixed_ratio == 1)
+{
+    $maxHeight = $givenHeight;
+    $maxWidth = $givenWidth;
 }
 
 // If we don't have a max width or max height, OR the image is smaller than both
@@ -170,8 +178,17 @@ else // Resize the image based on height
 }
 
 
+
+
+
 $tnWidth	= ceil($yRatio * $width);
- 	$tnHeight	= $maxHeight;
+$tnHeight	= $maxHeight;
+
+if($fixed_ratio == 1)
+{
+    $tnWidth = $maxWidth;
+    $tnHeight = $maxHeight;
+}
 
 // Determine the quality of the output image
 $quality	= (isset($_GET['quality'])) ? (int) $_GET['quality'] : DEFAULT_QUALITY;

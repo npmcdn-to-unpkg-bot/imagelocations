@@ -151,7 +151,7 @@ $current_category = get_the_category();
 
 				<a href="<?php the_permalink(); ?>">
 				<?php $image_url = wp_get_attachment_image_src($image, $size); ?>				  
-				  <img class="img-responsive" src="<?php echo get_stylesheet_directory_uri(); ?>/image.php?<?php echo get_any_image_url($image_url[0]); ?>&height=200&width=314&cropratio=1.50:1&amp;image=<?php echo get_any_image_url($image_url[0]); ?>" />
+				  <img class="img-responsive" src="<?php echo get_stylesheet_directory_uri(); ?>/image.php?<?php echo get_any_image_url($image_url[0]); ?>&height=200&width=314&cropratio=1.50:1&amp;fixed_ratio=1&amp;image=<?php echo get_any_image_url($image_url[0]); ?>" />
 				</a>
 
 			<?php endif; ?>						
@@ -178,7 +178,9 @@ $current_category = get_the_category();
   <div class="image_container hide"></div>
   
   <?php while (have_posts()): the_post(); ?>
-
+	
+	<?php $imgCounter = 0;?>
+	
     <section>
       <div class="container">
         <div class="project_side_sec">
@@ -200,7 +202,8 @@ $current_category = get_the_category();
                     <img class="img-responsive" src="<?php echo $banner_image_1; ?>" />
                   </a>            
                 </div>							
-
+				<?php $imgCounter++;?>
+				
     <?php elseif ($banner_type == '2 Photos' && $banner_image_1 != "" && $banner_image_2 != ""): ?>
 
                 <div class="swiper-slide">            
@@ -208,13 +211,15 @@ $current_category = get_the_category();
                     <img class="img-responsive" src="<?php echo $banner_image_1; ?>" />
                   </a>            
                 </div>							
-
+				<?php $imgCounter++;?>
+				
                 <div class="swiper-slide">            
                   <a href="<?php the_permalink(); ?>">
                     <img class="img-responsive" src="<?php echo $banner_image_2; ?>" />
                   </a>            
                 </div>							
-
+				<?php $imgCounter++;?>
+				
     <?php elseif ($banner_type == '3 Photos' && $banner_image_1 != "" && $banner_image_2 != "" && $banner_image_3 != ""): ?>
 
                 <div class="swiper-slide" style="margin-right: 3px; max-width: 436px; overflow: hidden;" >            
@@ -222,19 +227,22 @@ $current_category = get_the_category();
                     <img class="img-responsive" src="<?php echo $banner_image_1; ?>"   style=" max-width: none; height: 340px;" />
                   </a>            
                 </div>							
-
+				<?php $imgCounter++;?>
+				
                 <div class="swiper-slide" style="margin-right: 3px; max-width: 436px; overflow: hidden;" >            
                   <a href="<?php the_permalink(); ?>">
                     <img class="img-responsive" src="<?php echo $banner_image_2; ?>"   style=" max-width: none; height: 340px;" />
                   </a>            
                 </div>							
-
+				<?php $imgCounter++;?>
+				
                 <div class="swiper-slide" style="margin-right: 3px; max-width: 436px; overflow: hidden;" >            
                   <a href="<?php the_permalink(); ?>">
                     <img class="img-responsive" src="<?php echo $banner_image_3; ?>"   style=" max-width: none; height: 340px;" />
                   </a>            
                 </div>							
-
+				<?php $imgCounter++;?>
+				
               <?php endif; ?>
 
               <?php
@@ -257,7 +265,8 @@ $current_category = get_the_category();
                           <img class="img-responsive" src="<?php echo $display_image[0]; ?>" />
                         </a>            
                       </div>                        
-
+					<?php $imgCounter++;?>
+				
                     <?php endif; ?>
 
                   <?php else: ?>
@@ -269,7 +278,8 @@ $current_category = get_the_category();
                       <?php /* <div class="swiper-slide empty" style="width:<?php echo $display_image[1]; ?>px !important;background:url('<?php echo get_stylesheet_directory_uri(); ?>/images/slide-loader.gif') no-repeat;background-position:center;height:auto;"></div>
                         <div class="lazy-slides" data-lazy_href="<?php the_permalink(); ?>" data-lazy_src="<?php echo $display_image[0]; ?>"></div> */ ?>
                       <div class="lazy-slides" data-lazy_href="<?php the_permalink(); ?>" data-lazy_src="<?php echo $display_image[0]; ?>"></div>
-
+					<?php $imgCounter++;?>
+				
                     <?php endif; ?>
 
                   <?php endif; ?>
@@ -289,6 +299,8 @@ $current_category = get_the_category();
             <div class="swiper-button-next swiper-button-next-<?php echo $tempCounter; ?>"></div>                    
 
 			<div class="swiper-scrollbar swiper-scrollbar-<?php echo $tempCounter; ?>"><div class="swiper-scrollbar-drag scrollbar-default-width"></div></div>
+			<div id="swiper_slide_counter" class="swiper_slide_counter pull-right"><span class="current_slide">1</span>/<span class="total_slide"><?php echo $imgCounter; ?></span></div>
+			
           </div>
 
           <div class="row">

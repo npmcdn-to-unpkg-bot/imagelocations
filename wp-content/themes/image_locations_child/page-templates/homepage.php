@@ -117,7 +117,8 @@ $main_location_slider = get_posts($args);
 						<a href="/portfolio/" class="btn btn-primary">portfolio</a>                                                          
                       </div>
                       <div class="gray_bg">
-                        <h4>The <span>ART</span> of <span>LOCATIONS</span></h3>
+						<?php /* <h4>The <span>ART</span> of <span>LOCATIONS</span></h3> */ ?>
+						<img src="<?php echo get_stylesheet_directory_uri(); ?>/images/the-art-of-locations-2.png" class="img-responsive" />
 						<a href="/location-library/" class="btn btn-primary">LOCATIONS</a>                                                          
                       </div>					  
                     </div>

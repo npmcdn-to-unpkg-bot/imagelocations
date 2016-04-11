@@ -174,7 +174,7 @@ if ($wp_query):?>
 
                 <a href="<?php the_permalink(); ?>">
                   
-				  <img class="img-responsive" src="<?php echo get_stylesheet_directory_uri(); ?>/image.php?<?php echo $image['sizes']['medium']; ?>&height=200&width=314&cropratio=1.50:1&amp;image=<?php echo $image['sizes']['medium']; ?>" />
+				  <img class="img-responsive" src="<?php echo get_stylesheet_directory_uri(); ?>/image.php?<?php echo $image['sizes']['medium']; ?>&height=200&width=314&cropratio=1.50:1&amp;fixed_ratio=1&amp;image=<?php echo $image['sizes']['medium']; ?>" />
 
                 </a>								
 
@@ -204,7 +204,9 @@ if ($wp_query):?>
 <div class="image_container hide"></div>
 
 <?php while ( $wp_query->have_posts() ) : $wp_query->the_post();?>
-		
+
+<?php $imgCounter = 0;?>
+
 <section>
 	<div class="container">
 		<div class="project_side_sec" id="post-<?php the_ID(); ?>" <?php post_class('index-card'); ?>>
@@ -225,7 +227,8 @@ if ($wp_query):?>
 									<img class="img-responsive" src="<?php echo $banner_image_1; ?>" />
 								</a>            
 							</div>							
-					
+							<?php $imgCounter++;?>
+							
 					<?php elseif($banner_type == '2 Photos' && $banner_image_1 != "" && $banner_image_2 != ""): ?>
 											
 							<div class="swiper-slide">            
@@ -233,13 +236,15 @@ if ($wp_query):?>
 									<img class="img-responsive" src="<?php echo $banner_image_1; ?>" />
 								</a>            
 							</div>							
-									
+							<?php $imgCounter++;?>
+							
 							<div class="swiper-slide">            
 								<a href="<?php the_permalink(); ?>">
 									<img class="img-responsive" src="<?php echo $banner_image_2; ?>" />
 								</a>            
 							</div>							
-					
+							<?php $imgCounter++;?>
+							
 					<?php elseif($banner_type == '3 Photos' && $banner_image_1 != "" && $banner_image_2 != "" && $banner_image_3 != ""): ?>
 									
 							<div class="swiper-slide">            
@@ -247,19 +252,22 @@ if ($wp_query):?>
 									<img class="img-responsive" src="<?php echo $banner_image_1; ?>" />
 								</a>            
 							</div>							
-									
+							<?php $imgCounter++;?>
+							
 							<div class="swiper-slide">            
 								<a href="<?php the_permalink(); ?>">
 									<img class="img-responsive" src="<?php echo $banner_image_2; ?>" />
 								</a>            
 							</div>							
-						
+							<?php $imgCounter++;?>
+							
 							<div class="swiper-slide">            
 								<a href="<?php the_permalink(); ?>">
 									<img class="img-responsive" src="<?php echo $banner_image_3; ?>" />
 								</a>            
 							</div>							
-					
+							<?php $imgCounter++;?>
+							
 					<?php endif; ?>
 					
 					<?php $other_images = get_field('location_photos_new');  $size = 'medium'; // (thumbnail, medium, large, full or custom size) ?>
@@ -275,14 +283,15 @@ if ($wp_query):?>
 										<img class="img-responsive" src="<?php echo $other_image['sizes']['medium']; ?>" />                
 									</a>            
 								</div>                        
-							
+								<?php $imgCounter++;?>
+								
 								<?php else: ?>
 									
 									<?php /*<div class="swiper-slide empty" style="width:<?php echo $other_image['sizes']['medium-width']; ?>px !important;background:url('<?php echo get_stylesheet_directory_uri(); ?>/images/slide-loader.gif') no-repeat;background-position:center;height:auto;"></div>
 									<div class="lazy-slides" data-lazy_href="<?php the_permalink(); ?>" data-lazy_src="<?php echo $other_image['sizes']['medium']; ?>"></div> */ ?>
-									<div class="lazy-slides" data-lazy_href="<?php the_permalink(); ?>" data-lazy_src="<?php echo $other_image['sizes']['medium']; ?>"></div>
+									<div class="lazy-slides" data-lazy_href="<?php the_permalink(); ?>" data-lazy_src="<?php echo $other_image['sizes']['medium']; ?>"></div>									
+                  					<?php $imgCounter++;?>
 									
-                  
 								<?php endif; ?>
 									
 							<?php $count++; endforeach; ?>
@@ -298,6 +307,7 @@ if ($wp_query):?>
 				<div class="swiper-button-next swiper-button-next-<?php echo $tempCounter;?>"></div>                    
 
 				<div class="swiper-scrollbar swiper-scrollbar-<?php echo $tempCounter; ?>"><div class="swiper-scrollbar-drag scrollbar-default-width"></div></div>
+				<div id="swiper_slide_counter" class="swiper_slide_counter pull-right"><span class="current_slide">1</span>/<span class="total_slide"><?php echo $imgCounter; ?></span></div>
 										  
 			</div>    
 			
@@ -500,7 +510,7 @@ if ($wp_query):?>
 				
 				updateLikedLocations();
 				
-				//$.post('/wp-content/themes/image_locations_child/like-hide.php?action=' + act, {entry: entry_label, href: href});
+			
 				
 				$.ajax({
 				  method: "POST",
@@ -521,8 +531,7 @@ if ($wp_query):?>
 				
 				//$(this).parent('section').addClass('hide');
 				
-				//$.post('/wp-content/themes/image_locations_child/likehide.php?act=hide', {entry: entry_label, href: href});
-				
+			
 				$.ajax({
 				  method: "POST",
 				  url: "http://imagelocations.com/wp-content/themes/image_locations_child/like-hide.php",
@@ -578,4 +587,4 @@ if ($wp_query):?>
 	
 </script>
 
-    <?php get_footer(); ?>
+<?php get_footer(); ?>

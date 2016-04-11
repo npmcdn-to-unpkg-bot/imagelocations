@@ -91,6 +91,20 @@ function enqueue_parent_styles() {
 /* add stylesheets and javascript to child theme [end] */
 
 
+function ttruncat($text,$numb) 
+{
+  if (strlen($text) > $numb) 
+  { 
+    $text = substr($text, 0, $numb); 
+    $text = substr($text,0,strrpos($text," ")); 
+    $etc = " ...";  
+    $text = $text.$etc; 
+  }
+  
+  return $text; 
+}
+
+
 function get_device_name()
 {    
     $url = "http://imageloctions.staging.wpengine.com/get_device_name.php?id=".rand(0,9999999999);
@@ -129,6 +143,7 @@ function setup() {
 
   add_image_size('home_slide_image', 987, 656, true);
   add_image_size('image_314_454', 314, 454, true);
+  add_image_size('image_500_300', 500, 300, true);
 }
 
 add_action('init', 'my_deregister_heartbeat', 1);

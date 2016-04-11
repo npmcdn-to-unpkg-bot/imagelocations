@@ -44,7 +44,7 @@ get_header();
     <div class="title_sec">
       <div class="row">
 
-        <div class="col-md-8 col-sm-12"><h2>Permit | 
+        <div class="col-md-8 col-sm-7"><h2>Permit | 
             <?php if (has_post_thumbnail()): ?> 
 
               <?php the_post_thumbnail('thumbnail', array('class', 'img-responsive single-permit-logo')); ?>        
@@ -53,12 +53,13 @@ get_header();
 
           </h2></div>
 
-		<div class="col-md-4 col-sm-4 text-right">
+		<div class="col-md-4 col-sm-5 text-right">
 		  <?php if (isset($_GET['layout']) && $_GET['layout'] == 'quickview'): ?>
 			<a href="?layout=fullview" class="btn btn-primary pull-right"> View Full View</a>
 			 <?php else: ?>
 			<a href="?layout=quickview" class="btn btn-primary pull-right"> View Quickview</a>
 		  <?php endif ?>							
+                  <div class="clearfix">&nbsp;</div>
 		</div>
 			
       </div>
@@ -144,7 +145,7 @@ if ($posts):  ?>
 
                 <a href="<?php the_permalink(); ?>">
                   
-				  <img class="img-responsive" src="<?php echo get_stylesheet_directory_uri(); ?>/image.php?<?php echo $image['sizes']['medium']; ?>&height=200&width=314&cropratio=1.50:1&amp;image=<?php echo $image['sizes']['medium']; ?>" />
+				  <img class="img-responsive" src="<?php echo get_stylesheet_directory_uri(); ?>/image.php?<?php echo $image['sizes']['medium']; ?>&height=200&width=314&cropratio=1.50:1&amp;fixed_ratio=1&amp;image=<?php echo $image['sizes']['medium']; ?>" />
 
                 </a>								
 
@@ -155,7 +156,7 @@ if ($posts):  ?>
             </div>
 
             <?php if ($i % 6 == 0): ?>
-            </div><div class="row">
+<!--            </div><div class="row">-->
             <?php endif ?>
 
             <?php
@@ -174,7 +175,9 @@ if ($posts):  ?>
   	<div class="image_container hide"></div>
 
   <?php foreach ($posts as $post): setup_postdata($post); ?>
-
+	
+	<?php $imgCounter = 0;?>
+	
     <section>
       <div class="container">
         <div class="project_side_sec">
@@ -196,7 +199,8 @@ if ($posts):  ?>
                     <img class="img-responsive" src="<?php echo $banner_image_1; ?>" />
                   </a>            
                 </div>							
-
+				<?php $imgCounter++;?>
+				
     <?php elseif ($banner_type == '2 Photos' && $banner_image_1 != "" && $banner_image_2 != ""): ?>
 
                 <div class="swiper-slide">            
@@ -204,13 +208,15 @@ if ($posts):  ?>
                     <img class="img-responsive" src="<?php echo $banner_image_1; ?>" />
                   </a>            
                 </div>							
-
+				<?php $imgCounter++;?>
+				
                 <div class="swiper-slide">            
                   <a href="<?php the_permalink(); ?>">
                     <img class="img-responsive" src="<?php echo $banner_image_2; ?>" />
                   </a>            
                 </div>							
-
+				<?php $imgCounter++;?>
+				
     <?php elseif ($banner_type == '3 Photos' && $banner_image_1 != "" && $banner_image_2 != "" && $banner_image_3 != ""): ?>
 
                 <div class="swiper-slide">            
@@ -218,19 +224,22 @@ if ($posts):  ?>
                     <img class="img-responsive" src="<?php echo $banner_image_1; ?>" />
                   </a>            
                 </div>							
-
+				<?php $imgCounter++;?>
+				
                 <div class="swiper-slide">            
                   <a href="<?php the_permalink(); ?>">
                     <img class="img-responsive" src="<?php echo $banner_image_2; ?>" />
                   </a>            
                 </div>							
-
+				<?php $imgCounter++;?>
+				
                 <div class="swiper-slide">            
                   <a href="<?php the_permalink(); ?>">
                     <img class="img-responsive" src="<?php echo $banner_image_3; ?>" />
                   </a>            
                 </div>							
-
+				<?php $imgCounter++;?>
+				
     <?php endif; ?>
 
               <?php
@@ -253,7 +262,8 @@ if ($posts):  ?>
                           <img class="img-responsive" src="<?php echo $display_image[0]; ?>" />
                         </a>            
                       </div>                        
-
+					<?php $imgCounter++;?>
+					
 					<?php endif; ?>
 
                   <?php else: ?>
@@ -266,7 +276,8 @@ if ($posts):  ?>
                         <div class="lazy-slides" data-lazy_href="<?php the_permalink(); ?>" data-lazy_src="<?php echo $display_image[0]; ?>"></div> */ ?>
 
                       <div class="lazy-slides" data-lazy_href="<?php the_permalink(); ?>" data-lazy_src="<?php echo $display_image[0]; ?>"></div>
-
+                  	  <?php $imgCounter++;?>
+					
 					<?php endif; ?>
 
                   <?php endif; ?>
@@ -286,6 +297,7 @@ if ($posts):  ?>
             <div class="swiper-button-next swiper-button-next-<?php echo $tempCounter; ?>"></div>                    
 
 			<div class="swiper-scrollbar swiper-scrollbar-<?php echo $tempCounter; ?>"><div class="swiper-scrollbar-drag scrollbar-default-width"></div></div>
+			<div id="swiper_slide_counter" class="swiper_slide_counter pull-right"><span class="current_slide">1</span>/<span class="total_slide"><?php echo $imgCounter; ?></span></div>
 
           </div>
 
@@ -347,7 +359,7 @@ if ($posts):  ?>
     <div class="container">
       <div class="buttom_pagi_sec">
         <div class="row">
-          <div class="col-md-8 col-sm-12">  
+          <div class="col-md-8 col-sm-12 permits-links">  
 
             <?php if (function_exists('child_theme_pagination_home')): ?>
 

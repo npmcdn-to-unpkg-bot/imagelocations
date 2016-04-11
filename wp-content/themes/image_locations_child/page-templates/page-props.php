@@ -86,9 +86,8 @@ get_header();
 <?php endwhile; ?>
 
 <script>
-jQuery(document).ready(function(){
+jQuery(window).load(function(){
 	
-
   var wall = jQuery('.GITheWall').GITheWall({
       nextButtonClass: 'fa fa-arrow-right',
       prevButtonClass: 'fa fa-arrow-left',

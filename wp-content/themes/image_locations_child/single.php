@@ -187,7 +187,8 @@ $location_post_slug = $post->post_name;
 						<a data-id="<?php echo $project_i.$project_field_i; ?>" class="btn btn-add-moodboard" style="display: none;"></a>
 
 					  </div>  */ ?>
-							
+                   <?php $imgCounter++;?>
+				   
                     <?php endif; ?>
 
                     <?php
@@ -213,7 +214,7 @@ $location_post_slug = $post->post_name;
           <div class="swiper-button-next"></div>                    
 
           <div class="swiper-scrollbar swiper-scrollbar-moodboard"><div class="swiper-scrollbar-drag scrollbar-default-width"></div></div>
-
+		<div id="swiper_slide_counter" class="swiper_slide_counter pull-right"><span class="current_slide">1</span>/<span class="total_slide"><?php echo $imgCounter; ?></span></div>
         </div>
 
 
@@ -600,7 +601,7 @@ $location_post_slug = $post->post_name;
       <section>
         <div class="location_pdf_popup">
           <h4>Generate Custom PDF</h4>
-          <form id="pdf_generate_form" method="POST" action="http://imagelocations.com/wp-content/themes/image_locations_child/actionpdf.php" target="_blank" class="form-parlsey">
+          <form id="pdf_generate_form" method="POST" action="http://imageloctions.wpengine.com/wp-content/themes/image_locations_child/actionpdf.php" target="_blank" class="form-parlsey">
 
             <div class="form-group">
               <label for="PDF Title">PDF Title: </label>
@@ -631,7 +632,7 @@ $location_post_slug = $post->post_name;
       <section>
         <div class="location_pdf_moodboard_popup">
           <h4>Generate Custom PDF</h4>
-          <form id="pdf_generate_moodboard" method="POST" action="http://imagelocations.com/wp-content/themes/image_locations_child/actionpdf.php" target="_blank" class="form-parlsey-2">
+          <form id="pdf_generate_moodboard" method="POST" action="http://imageloctions.wpengine.com/wp-content/themes/image_locations_child/actionpdf.php" target="_blank" class="form-parlsey-2">
 
             <div class="form-group">
               <label for="PDF Title">PDF Title: </label>
