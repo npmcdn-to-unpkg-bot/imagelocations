@@ -110,7 +110,7 @@ $location_post_slug = $post->post_name;
               foreach ($images as $image):
                 ?>                        
 
-                <?php if ($slide_counter < 5): ?>
+                <?php if ($slide_counter < 500): ?>
 
                   <div class="swiper-slide swiper-slide-gallery">
 
@@ -121,7 +121,7 @@ $location_post_slug = $post->post_name;
                   </div>                       
 				  
 					<?php $imgCounter++;?>
-					<?php else: ?>
+					<?php /* else: ?>
                   
 					<div class="lazy-slides lazy-slides-gallery" data-a_id="<?php echo $image['ID']; ?>" data-drag_image="drag_image_<?php echo $image['ID']; ?>" data-thumb_id="<?php echo $image['sizes']['thumbnail']; ?>" data-lazy_src="<?php echo $image['sizes']['Large_Watermark']; ?>">
 
@@ -130,7 +130,7 @@ $location_post_slug = $post->post_name;
           </div>
 					 
 				
-                   <?php $imgCounter++;?>                       
+                   <?php  $imgCounter++; */?>                       
                 <?php   endif; ?>
 
                 <?php
@@ -178,15 +178,16 @@ $location_post_slug = $post->post_name;
 
                     <?php if (get_sub_field('project_image')): ?>
 						
-						<div class="lazy-slides" data-a_id="<?php echo $project_i . $project_field_i; ?>" data-drag_image="drag_image_<?php echo $project_i . $project_field_i; ?>" data-thumb_id="<?php echo get_sub_field('project_image'); ?>" data-lazy_src="<?php echo get_sub_field('project_image'); ?>"></div>
+						
+						<?php /* <div class="lazy-slides" data-a_id="<?php echo $project_i . $project_field_i; ?>" data-drag_image="drag_image_<?php echo $project_i . $project_field_i; ?>" data-thumb_id="<?php echo get_sub_field('project_image'); ?>" data-lazy_src="<?php echo get_sub_field('project_image'); ?>"></div> */ ?>
 					  
-					  <?php /* <div class="swiper-slide swiper-slide-gallery">
+					  <div class="swiper-slide swiper-slide-gallery">
 
 						<img id="drag_image_<?php echo $project_i.$project_field_i; ?>" data-thumb="<?php echo get_sub_field('project_image'); ?>" src="<?php echo get_sub_field('project_image'); ?>" class="img-responsive" />
 
 						<a data-id="<?php echo $project_i.$project_field_i; ?>" class="btn btn-add-moodboard" style="display: none;"></a>
 
-					  </div>  */ ?>
+					  </div>
                    <?php $imgCounter++;?>
 				   
                     <?php endif; ?>

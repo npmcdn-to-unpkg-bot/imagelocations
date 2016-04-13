@@ -53,7 +53,8 @@ section .slider_sec .caption{bottom:0px;}
   section .location_sec .leftside .btn-primary{font-size:24px;}
   section .location_sec .leftside a i{margin-top:-30px;}
 
-
+#menu-header li:last-child a{margin-left:8px; padding-left:0px; width:36px; font-size:0px !important}
+#menu-header li:nth-last-child(2) a{margin-left:8px; padding-left:0px; width:36px; font-size:0px !important}
 }
 
 @media (min-width: 990px) and (max-width:1024px)
@@ -212,6 +213,8 @@ section .skystudio_sec{margin-top:15px;}
 .mob-pd-0{ padding:0px !important; }
 section .title_sec .btn.btn-primary{ color:#fff !important; }
 
+section .slider_sec .caption h3{width:90%}
+#menu-header li:nth-last-child(2) a,#menu-header li:last-child a{padding-left:0px;}
 }
 
 

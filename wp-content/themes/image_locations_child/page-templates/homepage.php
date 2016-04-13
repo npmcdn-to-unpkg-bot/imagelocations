@@ -49,7 +49,7 @@ $main_location_slider = get_posts($args);
                               <?php /* <img class="img-responsive" src="<?php echo $slider['banner_slideshow_image']['sizes']['home_slide_image']; ?>" width="<?php echo $slider['banner_slideshow_image']['sizes']['home_slide_image-width']; ?>" height="<?php echo $slider['banner_slideshow_image']['sizes']['home_slide_image-height']; ?>" alt="<?php echo $slider['banner_slideshow_title']; ?>" />*/ ?>
                             </a>
 							<div class="caption">
-								<a href="<?php echo $slider['banner_slideshow_link']; ?>" class="text-decoration-none"><h3><?php echo $slider['banner_slideshow_title']; ?></h3></a>
+								<a href="<?php echo $slider['banner_slideshow_link']; ?>" class="text-decoration-none"><h3><?php echo $slider['banner_slideshow_title']; ?><br/><span><?php echo $slider['banner_slideshow_city']; ?></span></h3></a>
 								<?php /*if($slider['banner_slideshow_location_city'] != ""): ?>
 									<h2><span>|</span><?php echo $slider['banner_slideshow_location_city']; ?></h2>
 								<?php endif; */ ?>
@@ -116,10 +116,15 @@ $main_location_slider = get_posts($args);
                         <h4>RECENT PROJECTS</h3>
 						<a href="/portfolio/" class="btn btn-primary">portfolio</a>                                                          
                       </div>
-                      <div class="gray_bg">
-						<?php /* <h4>The <span>ART</span> of <span>LOCATIONS</span></h3> */ ?>
-						<img src="<?php echo get_stylesheet_directory_uri(); ?>/images/the-art-of-locations-2.png" class="img-responsive" />
-						<a href="/location-library/" class="btn btn-primary">LOCATIONS</a>                                                          
+                      <div class="gray_bg">                        
+                        <?php 
+                            $count_posts = wp_count_posts();
+                            $published_posts = $count_posts->publish;                        
+                        ?>  
+                        <?php /* <h4>The <span>ART</span> of <span>LOCATIONS</span></h3> */ ?>
+                        <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/the-art-of-locations-2.png" class="img-responsive" />
+                        <span class="counter counter-analog counter-homepage-location" data-direction="up" data-interval="1" data-format="9999" data-stop="<?php echo $published_posts+590;?>"><?php echo $published_posts;?></span>
+                        <a href="/location-library/" class="btn btn-primary btn-side-counter">LOCATIONS</a>                                                          
                       </div>					  
                     </div>
 					
@@ -159,7 +164,7 @@ $banners_list = get_posts($args);
           <section>
             <div class="container text-center">
               <div class="home_photo">	
-                <h4><?php echo $banner['section_title']; ?></h4>
+                
                 <?php echo $banner['code_embed']; ?>
                 <div class="home_video_banner">
                   <?php if (is_array($banner['code_embed_image']) && count($banner['code_embed']) > 0): ?>
@@ -170,6 +175,7 @@ $banners_list = get_posts($args);
                     </center>
                   <?php endif; ?>
                 </div>
+				<h4><?php echo $banner['section_title']; ?></h4>
               </div>
             </div>
           </section>
@@ -183,7 +189,7 @@ $banners_list = get_posts($args);
                 <?php foreach ($banner['banner_slideshow_'] as $slider): ?>
                   <?php $titles .= ' | ' . $slider['banner_slideshow_title']; ?>
                 <?php endforeach; ?>
-                <h4><?php echo ltrim($titles, '| '); ?></h4>
+                
                 <?php $tempCounter = 0; ?>  
                 <div class="swiper-container home-location home-location-<?php echo $tempCounter; ?>">
                   <div class="swiper-wrapper">
@@ -204,6 +210,7 @@ $banners_list = get_posts($args);
                   <div class="swiper-button-prev swiper-button-prev-<?php echo $tempCounter; ?>"></div>
                   <div class="swiper-button-next swiper-button-next-<?php echo $tempCounter; ?>"></div>                    
                 </div>
+				<h4><?php echo ltrim($titles, '| '); ?></h4>
               </div>
             </div>
           </section>
@@ -214,7 +221,7 @@ $banners_list = get_posts($args);
           <section>
             <div class="container text-center">
               <div class="photo_slider">
-                <h4><?php echo $banner['section_title']; ?></h4>
+                
                 <?php if (is_array($banner['banner_image']) && count($banner['banner_image']) > 0): ?>
                   <center>
                     <a href="<?php echo $banner['banner_link']; ?>">
@@ -222,6 +229,7 @@ $banners_list = get_posts($args);
                     </a>
                   </center>
                 <?php endif; ?>
+				<h4><?php echo $banner['section_title']; ?></h4>
               </div>        
             </div>
           </section>
