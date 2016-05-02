@@ -53,8 +53,8 @@ section .slider_sec .caption{bottom:0px;}
   section .location_sec .leftside .btn-primary{font-size:24px;}
   section .location_sec .leftside a i{margin-top:-30px;}
 
-#menu-header li:last-child a{margin-left:8px; padding-left:0px; width:36px; font-size:0px !important}
-#menu-header li:nth-last-child(2) a{margin-left:8px; padding-left:0px; width:36px; font-size:0px !important}
+#main_header #menu-header li:nth-last-child(1) a{margin-left:8px; padding-left:0px; width:36px; font-size:0px !important}
+#main_header #menu-header li:nth-last-child(2) a{margin-left:8px; padding-left:0px; width:36px; font-size:0px !important}
 }
 
 @media (min-width: 990px) and (max-width:1024px)
@@ -96,7 +96,7 @@ section .slider_sec .caption{bottom:0px;}
   header .top_sec{height:32px !important;}
   header .top_sec .top_text, header .top_sec .top_text a, header .top_sec .top_text > span{line-height:25px !important;}
   #astero_widget-2 { position:relative !important; right: 0; top: 0;}
-  section .skystudio_sec .dropdown{top:199px !important; right:0% !important }
+  section .skystudio_sec .dropdown{top:146px !important; right:0% !important }
   section .skystudio_sec .btn-primary{top:0px !important; }
 
   .owl-carousel .owl-item img, section .skystudio_sec .owl-carousel .owl-item img{max-width:100% !important}
@@ -214,7 +214,14 @@ section .skystudio_sec{margin-top:15px;}
 section .title_sec .btn.btn-primary{ color:#fff !important; }
 
 section .slider_sec .caption h3{width:90%}
-#menu-header li:nth-last-child(2) a,#menu-header li:last-child a{padding-left:0px;}
+.mobile_nav #menu-header li:nth-last-child(3) a,.mobile_nav #menu-header li:nth-last-child(2) a{padding-left:0px;}
+
+#mobile_header #menu-header li:nth-last-child(2) a {background:url(../images/menu_icon.png) left center no-repeat; padding-left:35px; margin-left:5px;}
+#mobile_header #menu-header li:nth-last-child(3) a {background:url(../images/cpw_icon.png) left center no-repeat; padding-left:25px; margin-left:5px;}
+
+section .slider_sec .caption h3 span{display:none}
+section .skystudio_sec .dropdown.quicknav { display:none; }
+
 }
 
 
@@ -308,4 +315,3 @@ section .slider_sec .caption h3{width:90%}
   .location-single-toprint{display:block !important; }    
 
 }
-

@@ -50,7 +50,7 @@
         </ul>
       </div>
       <div class="clearfix"></div>
-      <div class="copyright_text">© Copyright 2008/2015. IMAGE LOCATIONS, INC. All Rights Reserved. Designed by VHF, Powered by Omuze Inc. </div>
+      <div class="copyright_text">© Copyright 2016. IMAGE LOCATIONS, INC. All Rights Reserved. Designed by VHF, Powered by Omuze Inc. </div>
     </div>
   </div>
 </footer>
@@ -93,6 +93,8 @@
 <a class="fancybox" id="comman-link"></a>
 
 <script type="text/javascript" src="<?php echo get_stylesheet_directory_uri(); ?>/js/blazy.min.js" defer="defer"></script>
+
+<script type="text/javascript" src="<?php echo get_stylesheet_directory_uri(); ?>/js/jquery.formatter.min.js" defer="defer"></script>
 
 <script type="text/javascript" src="<?php echo get_stylesheet_directory_uri(); ?>/js/custom.js" defer="defer"></script>
 <script type="text/javascript" src="<?php echo get_stylesheet_directory_uri(); ?>/js/custom_2.js" defer="defer"></script>

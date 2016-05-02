@@ -5,6 +5,25 @@
 get_header();
 ?>
 
+<?php $sections = get_field('location_library_section'); ?>
+
+<?php 
+$section_names = array();
+
+if(is_array($sections) && count($sections) > 0){
+	foreach($sections as $section){
+		
+		if($section['section_title'] != ""){
+			
+			$section_names[] = '<a href="javascript:void(0);" data-target="'.str_replace(" ", "_", $section['section_title']).'" class="location-hash-link btn btn-primary">'.$section['section_title'].'<i class="fa fa-angle-right"></i></a>';
+			
+		}
+		
+	}	
+} 
+?>
+
+<?php //echo "<pre>"; print_r($sections); echo "</pre>"; ?>
 
 <!--------location library------------->
 <section>
@@ -15,7 +34,18 @@ get_header();
                 <div class="col-md-3 col-sm-4">
                     <div class="leftside">
                         <a href="javascript:void(0);" data-target="" class="location-hash-link btn btn-primary red_text">Exclusives<i class="fa fa-angle-right"></i></a>
-                        <a href="javascript:void(0);" data-target="featured_categories_anchor" class="location-hash-link btn btn-primary">Featured<i class="fa fa-angle-right"></i></a>
+                        <?php /* <a href="javascript:void(0);" data-target="featured_categories_anchor" class="location-hash-link btn btn-primary">Featured<i class="fa fa-angle-right"></i></a> */ ?>
+						
+						<?php if(is_array($section_names) && count($section_names) > 0): ?>
+						
+							<?php foreach($section_names as $name): ?>
+							
+								<?php echo $name; ?>
+							
+							<?php endforeach; ?>
+							
+						<?php endif; ?>
+						
                         <a href="javascript:void(0);" data-target="all_ctegories_anchor" class="location-hash-link btn btn-primary">All Categories<i class="fa fa-angle-right"></i></a>
                         <div class="link_left categories_sm_links">
                             <ul>
@@ -67,7 +97,7 @@ get_header();
                                     foreach ($azRange as $letter)
                                     {
                                         ?>
-                                        <li><a href="javascript:void(0);" class="location-hash-link" data-target="<?php echo $letter;?>"><?php echo $letter;?></a></li>
+                                        <li><a href="javascript:void(0);" class="location-hash-link location-alpha" data-target="<?php echo $letter;?>"><?php echo $letter;?></a></li>
                                         <?php 
                                     }    
                                 ?>                                                                                                
@@ -147,10 +177,10 @@ get_header();
                                 </div>
 
                                 <div class="col-md-3 col-sm-6 pd">
-                                    <a href="/exotic-1/">                                        
+                                    <a href="/oasis/">                                        
 										<img src="<?php echo get_stylesheet_directory_uri(); ?>/image.php?<?php echo site_url().'/wp-content/uploads/2015/05/Exotic-01c-FrontBanner_13-605x340.jpg'; ?>&height=211&width=141&cropratio=1.70:1&amp;image=<?php echo site_url().'/wp-content/uploads/2015/05/Exotic-01c-FrontBanner_13-605x340.jpg'; ?>" class="img-responsive" />
                                         <div class="text_caption">
-                                            <p>Exotic 1</p>
+                                            <p>Oasis</p>
                                         </div>
                                     </a>
                                 </div>
@@ -168,16 +198,12 @@ get_header();
 
     <?php wp_reset_query();
 endif; ?>
+<?php /*                        
                         <div class="clearfix" id="featured_categories_anchor">&nbsp;</div>    
                         <h1>Featured Categories </h1>
 
 						<?php $featured_categories = get_field('featured_categories'); ?>
 						
-						<?php /*echo "<pre>"; ?>
-						
-							<?php print_r($featured_categories); ?>
-						
-						<?php echo "</pre>"; */ ?>
 						
 						<?php if(is_array($featured_categories) && count($featured_categories) > 0): ?>
 							
@@ -210,53 +236,101 @@ endif; ?>
 							<div class="clearfix">&nbsp;</div>
 						
 						<?php endif; ?>
-						      
+*/ ?>						      
 							  
-							  
-                    
+						<?php if(is_array($sections) && count($sections) > 0): ?>
+
+							<?php foreach($sections as $section): ?>
+								
+								<div class="clearfix" id="<?php echo str_replace(" ", "_", $section['section_title']); ?>">&nbsp;</div>    
+								
+								<h1><?php echo $section['section_title']; ?></h1>
+														
+								<div class="row md">
+							
+									<?php if(is_array($section['section_items']) && count($section['section_items']) > 0): ?>
+									
+										<?php foreach($section['section_items'] as $item): ?>
+										
+											<div class="col-md-3 col-sm-6 pd">
+											
+												 <a href="<?php echo isset($item['link_url'])? $item['link_url'] : '#'; ?>"> 
+												 
+													<?php if(is_array($item['image']) && count($item['image']) > 0): ?>
+												 
+														<img src="<?php echo get_stylesheet_directory_uri(); ?>/image.php?<?php echo $item['image']['sizes']['large']; ?>&height=211&width=141&cropratio=1.70:1&amp;image=<?php echo $item['image']['sizes']['large']; ?>" class="img-responsive" alt="<?php echo $fc['image']['alt']; ?>" />
+														
+													<?php endif; ?>
+														
+													<div class="text_caption">
+														<p><?php echo isset($item['name'])? $item['name'] : ''; ?></p>
+													</div>
+													
+												 </a>
+											
+											</div>										
+										
+										<?php endforeach; ?>
+									
+									<?php endif; ?>
+							
+								</div>
+							<?php endforeach; ?>
+						
+						<?php endif; ?>                   
                         
 						<div class="clearfix" id="all_ctegories_anchor">&nbsp;</div>
-                        <h1>All Categories</h1>
+                        
+							
+						<ul id="basics" class="cd-faq-group text-left">
 
-                        <div class="row md">
+							<li>
+								<a class="cd-faq-trigger" href="#0" style="text-decoration:none; color:#fff"><h1>All Categories<span class="all-category-icon pull-right">+</span></h1></a>
+								<div class="cd-faq-content">
+																			
+								<div class="row md">
 
-                            <?php $temp_array = array(); ?> 
+									<?php $temp_array = array(); ?> 
 
-                            <?php                             
-                            $i = 1;
-                            $id_attr = '';
-                            $old_id = '';
-                            $new_id = '';
-                            foreach (get_categories('orderby=name&exclude=11839') as $cat) : ?>
+									<?php                             
+									$i = 1;
+									$id_attr = '';
+									$old_id = '';
+									$new_id = '';
+									foreach (get_categories('orderby=name&exclude=11839') as $cat) : ?>
 
-                                <?php                               
-                                $char = strtoupper(substr(trim($cat->cat_name), 0, 1));
-                                $new_id = $char;
-                                if (!in_array($char, $temp_array)) 
-                                {
-                                    array_push($temp_array, $char);
-                                    $id_attr = 'id="' . $char . '"';
-                                }
-                                ?> 
+										<?php                               
+										$char = strtoupper(substr(trim($cat->cat_name), 0, 1));
+										$new_id = $char;
+										if (!in_array($char, $temp_array)) 
+										{
+											array_push($temp_array, $char);
+											$id_attr = 'id="' . $char . '"';
+										}
+										?> 
 
-                                <div class="col-md-3 col-sm-6 pd" id="<?php if($new_id != $old_id){$old_id = $new_id;echo $old_id;}?>">					  
-                                    <?php $category_image = get_field('category_image', 'category_' . $cat->term_id); ?>
-                                    <a href="<?php echo get_category_link($cat->term_id); ?>" class="<?php echo $cat->cat_name; ?>">
-                                        <img src="<?php echo get_stylesheet_directory_uri(); ?>/image.php?<?php echo $category_image['sizes']['large']; ?>&height=211&width=141&cropratio=1.70:1&amp;image=<?php echo $category_image['sizes']['large']; ?>" class="img-responsive" alt="" />
-                                        <div class="text_caption">
-                                            <p><?php echo $cat->cat_name; ?></p>
-                                        </div>
-                                    </a>																
-                                </div>
+										<div class="col-md-3 col-sm-6 pd" id="<?php if($new_id != $old_id){$old_id = $new_id;echo $old_id;}?>">					  
+											<?php $category_image = get_field('category_image', 'category_' . $cat->term_id); ?>
+											<a href="<?php echo get_category_link($cat->term_id); ?>" class="<?php echo $cat->cat_name; ?>">
+												<img src="<?php echo get_stylesheet_directory_uri(); ?>/image.php?<?php echo $category_image['sizes']['large']; ?>&height=211&width=141&cropratio=1.70:1&amp;image=<?php echo $category_image['sizes']['large']; ?>" class="img-responsive" alt="" />
+												<div class="text_caption">
+													<p><?php echo $cat->cat_name; ?></p>
+												</div>
+											</a>																
+										</div>
 
-                                <?php if ($i % 4 == 0): ?>
-                                    <div class="clearfix"></div>
-    <?php endif; ?>
+										<?php if ($i % 4 == 0): ?>
+											<div class="clearfix"></div>
+			<?php endif; ?>
 
-    <?php $i++;
-endforeach; ?>						
+			<?php $i++;
+		endforeach; ?>						
 
-                        </div>
+								</div>
+
+								</div>
+							</li>
+						</ul>
 
                     </div>
                 </div>        

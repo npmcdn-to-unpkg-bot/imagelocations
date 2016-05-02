@@ -39,7 +39,12 @@ $location_post_slug = $post->post_name;
         <?php if ($images): ?>
 
           <?php
-          $i = 1;
+          $i = 0;
+
+		  if(get_field('collage_new')){			 
+			  $i++;
+		  }
+		  
           foreach ($images as $image):
             ?>                        
 
@@ -57,7 +62,7 @@ $location_post_slug = $post->post_name;
 
           <?php if (is_array($caption_array) && count($caption_array) > 0): ?>
 
-            <div class="dropdown">
+            <div class="dropdown quicknav">
 
               <button class="btn btn-success dropdown-toggle btn-quick-nav-right" type="button" data-toggle="dropdown">Quick <br />Navigation <span class="caret"></span></button>
 

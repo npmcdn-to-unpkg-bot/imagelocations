@@ -114,7 +114,7 @@
             );
             wp_nav_menu($defaults);
             ?>
-
+			
             <div class="clearfix"></div>
           </div>
 
@@ -206,7 +206,7 @@
               );
               wp_nav_menu($defaults);
               ?>
-
+			  <div class="last_menu_item"><a href="/client-login/">Client Login</a></div>
               <div class="clearfix"></div>
             </div>
 

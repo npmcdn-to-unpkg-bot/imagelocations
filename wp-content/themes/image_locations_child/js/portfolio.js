@@ -49,7 +49,7 @@ jQuery(window).load(function () {
         jQuery('.' + project_category).imagesLoaded(function () {
 
 
-          jQuery('#' + project_category).waterfall();
+          //jQuery('#' + project_category).waterfall();
 		  
 		   jQuery("#"+project_category+" img").each(function(){
 			  var image = jQuery(this); 
@@ -64,8 +64,27 @@ jQuery(window).load(function () {
           if (jQuery('.loading-div-' + project_category).size() > 0) {
             jQuery('.loading-div-' + project_category).hide();
           }
+		  		   
+			jQuery('#'+project_category).photoGrid({
+				itemSelector: ".photoGrid", // item selecor 
+				resize: true, // automatic reload grid on window size change
+				rowHeight: 280, // looks best, but needs highres thumbs
+				callback: function() {
+					
+					if(project_category > 0){
+						jQuery("#"+project_category).closest('li').find('.cd-faq-trigger').trigger('click');
+						console.log('click');
+					}
+					
+					//console.log('#'+project_category);
+				} // fires when layouting grid is done
+			});
+		  
           ItemCounter++;
-          get_category_posts_html(options[ItemCounter][0], options[ItemCounter][1]);
+		  if(ItemCounter < OptionsTotal)
+		  {
+			get_category_posts_html(options[ItemCounter][0], options[ItemCounter][1]);
+		  }
 
         });
 

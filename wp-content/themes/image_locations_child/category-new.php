@@ -145,9 +145,9 @@ get_header();
         <div class="row mr-left-10">
 
           <?php
-          /*global $query_string;
-          $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
-          query_posts($query_string . '&paged=' . $paged . '&posts_per_page=40');*/
+//            global $query_string;            
+//            $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+//            query_posts($query_string . '&paged=' . $paged . '&posts_per_page=40');
           ?>
 
           <?php

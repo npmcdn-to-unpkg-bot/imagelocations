@@ -33,7 +33,7 @@
             <?php $query_string_value = ltrim($query_string_value, ', '); ?>
             <?php $query_string_value = rtrim($query_string_value, ', '); ?>
 
-            <?php if (isset($_GET['city'])): ?>
+            <?php if (isset($_GET['city']) && count($_GET['city']) > 0): ?>
 
               <?php $query_string_value .= implode(",", $_GET['city']); ?>
 

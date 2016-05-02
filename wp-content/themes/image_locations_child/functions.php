@@ -33,6 +33,7 @@ function enqueue_parent_styles() {
   wp_enqueue_style('parsley-style-css', get_stylesheet_directory_uri() . '/js/parsly/target-admin2.css');
 
   wp_enqueue_style('swiper-style-css', get_stylesheet_directory_uri() . '/js/swiper/css/swiper.min.css');
+  wp_enqueue_style('counter-css', get_stylesheet_directory_uri() . '/js/counter_script/jquery.counter-analog.css');
 
 
 
@@ -69,9 +70,12 @@ function enqueue_parent_styles() {
     wp_enqueue_script('highlight-js', '//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.0/highlight.min.js', array(), false, true); */
 
 //  wp_enqueue_script('bootstrap-multiselect-js', get_stylesheet_directory_uri() . '/js/bootstrap-multiselect.js', array(), false, true);
+  
+  wp_enqueue_script('photogrid-js', get_stylesheet_directory_uri() . '/js/jquery.photogrid.js', array(), false, true);
 
   wp_enqueue_script('imagesloaded-js', '//npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.min.js', array(), false, true);
   wp_enqueue_script('jquery-waitforimages-js', get_stylesheet_directory_uri() . '/js/jquery.waitforimages.js', array(), false, true);
+  wp_enqueue_script('counter-script-js', get_stylesheet_directory_uri() . '/js/counter_script/jquery.counter.js', array(), false, true);
 
   wp_register_script('my-script', get_stylesheet_directory_uri() . '/js/myscript.js');
   wp_enqueue_script('mousewheel', get_stylesheet_directory_uri() . '/js/jquery.mousewheel.js', array(), false, true);
@@ -381,8 +385,16 @@ function alter_query($query) {
 	//echo "<pre>";print_r($query); echo "</pre>";
   }
 
-  $query->set('showposts', 20);
-
+  if(is_category('new') && isset($_REQUEST['layout']) && $_REQUEST['layout'] == "quickview")
+  {
+      $query->set('showposts', 40);
+  }
+  else
+  {
+      $query->set('showposts', 20);
+  }
+  
+  
   
   //we remove the actions hooked on the '__after_loop' (post navigation)
 
@@ -511,19 +523,21 @@ function your_wpcf7_mail_sent_function($contact_form) {
     $loginurl = "https://login.salesforce.com/services/oauth2/token";
     require_once 'SalesforceAPI.php';
 
-//    echo "U: ".USER_NAME;
-//    echo "<br />";
-//    echo "P: ".PASSWORD;
-//    echo "<br />";
-//    echo "T: ".TOKEN;
-//    exit;
+    //    echo "U: ".USER_NAME;
+    //    echo "<br />";
+    //    echo "P: ".PASSWORD;
+    //    echo "<br />";
+    //    echo "T: ".TOKEN;
+    //    exit;
     // Login to salesforce REST API
+    
     $salesforce = new SalesforceAPI('https://login.salesforce.com', '32.0', CLIENT_ID, CLIENT_SECRET);
     $loginObj = $salesforce->login(USER_NAME, PASSWORD, TOKEN);
 
 
     $access_token = $salesforce->access_token;
     $base_url = $salesforce->new_instance_url;
+    
 //    echo $base_url;
 
     $request_params = [
@@ -531,9 +545,12 @@ function your_wpcf7_mail_sent_function($contact_form) {
         'LastName' => $lastname,
         'Email' => $email,
         'Company' => $company,
-        'LeadSource' => "Website",        
+        'LeadSource' => "Website",
+        'Contact_Initial_Message__c' => "<b>Location name:</b> ".$location."<br /><br /><b>Message: </b>".$message,
+//        'Description' => "Test Message: ".$message
 //        'List' => "Website",        
-        //'Message' => $message,
+//        'Message' => $message,        
+//        'Name' => $location,
     ];
 
     //$response = $salesforce->create_contact($request_params);
