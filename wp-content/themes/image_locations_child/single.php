@@ -7,7 +7,7 @@
  * @since Twenty Fifteen 1.0
  */
 get_header();
-wp_enqueue_script('imagesloaded-js', '//npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.min.js', array(), false, true);
+wp_enqueue_script('imagesloaded-js', '//unpkg.com/imagesloaded@4.1/imagesloaded.pkgd.min.js', array(), false, true);
 
 global $post;
 $location_post_slug = $post->post_name;

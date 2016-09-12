@@ -73,7 +73,7 @@ function enqueue_parent_styles() {
   
   wp_enqueue_script('photogrid-js', get_stylesheet_directory_uri() . '/js/jquery.photogrid.js', array(), false, true);
 
-  wp_enqueue_script('imagesloaded-js', '//npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.min.js', array(), false, true);
+  wp_enqueue_script('imagesloaded-js', '//unpkg.com/imagesloaded@4.1/imagesloaded.pkgd.min.js', array(), false, true);
   wp_enqueue_script('jquery-waitforimages-js', get_stylesheet_directory_uri() . '/js/jquery.waitforimages.js', array(), false, true);
   wp_enqueue_script('counter-script-js', get_stylesheet_directory_uri() . '/js/counter_script/jquery.counter.js', array(), false, true);
 
